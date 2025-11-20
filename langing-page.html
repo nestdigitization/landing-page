@@ -57,17 +57,10 @@
             text-decoration: none;
         }
 
-        .logo-img {
-            width: 45px;
-            height: 45px;
-            margin-right: 12px;
-            border-radius: 8px;
-        }
-
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
@@ -365,10 +358,58 @@
             line-height: 1.6;
         }
 
-        /* Workflow Section */
-        .workflow {
+        /* NEW SECTION: How It Works (Tech Process) */
+        .how-it-works {
             padding: 80px 5%;
-            background: var(--color-light);
+            background: var(--color-light); /* Alternanza colore */
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--color-light); /* Numero grande e sottile sullo sfondo */
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            position: relative; /* Per stare sopra il numero */
+        }
+
+        .step-content p {
+            font-size: 0.95rem;
+            color: #555;
+            position: relative;
+        }
+
+        /* RENAMED SECTION: Services (ex Workflow) */
+        .services {
+            padding: 80px 5%;
+            background: white; /* Alternanza colore */
         }
 
         .workflow-container {
@@ -384,10 +425,11 @@
         }
 
         .workflow-card {
-            background: white;
+            background: white; /* Se la sezione è bianca, la card potrebbe avere un bordo o background leggerissimo */
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
         }
 
         .workflow-card h3 {
@@ -409,6 +451,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .workflow-steps {
@@ -490,7 +533,7 @@
         /* FAQ Section */
         .faq {
             padding: 80px 5%;
-            background: white;
+            background: var(--color-light); /* Alternanza */
         }
 
         .faq-container {
@@ -503,10 +546,11 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            background: white;
         }
 
         .faq-question {
-            background: var(--color-light);
+            background: white;
             padding: 1.5rem;
             cursor: pointer;
             display: flex;
@@ -516,7 +560,7 @@
         }
 
         .faq-question:hover {
-            background: #e6dfd4;
+            background: #f9f9f9;
         }
 
         .faq-question h3 {
@@ -536,6 +580,7 @@
             overflow: hidden;
             transition: max-height 0.3s, padding 0.3s;
             background: white;
+            border-top: 1px solid #f0f0f0;
         }
 
         .faq-item.active .faq-answer {
@@ -550,7 +595,7 @@
         /* Contact Section */
         .contact {
             padding: 80px 5%;
-            background: var(--color-light);
+            background: white;
         }
 
         .contact-container {
@@ -577,6 +622,7 @@
             color: var(--color-dark);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s;
+            border: 1px solid #eee;
         }
 
         .linkedin-link:hover {
@@ -672,7 +718,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
             <a href="#" class="logo">
@@ -681,8 +726,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#features">Vantaggi</a></li>
-                <li><a href="#workflow">Come Funziona</a></li>
-                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#how-it-works">Come Funziona</a></li> <li><a href="#services">Servizi</a></li> <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contatti</a></li>
                 <li><a href="#newsletter" class="cta-button">Resta Aggiornato</a></li>
             </ul>
@@ -694,7 +738,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
@@ -707,8 +750,7 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
-                    <a href="#workflow" class="secondary-button">Scopri Come Funziona</a>
-                </div>
+                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
             </div>
             <div class="hero-visual">
                 <div class="scan-animation">
@@ -725,7 +767,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features" class="features">
         <div class="section-header">
             <h2>I Vantaggi di NEST</h2>
@@ -750,20 +791,55 @@
         </div>
     </section>
 
-    <!-- Workflow Section -->
-    <section id="workflow" class="workflow">
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-header">
+            <h2>Dalla Foto al Database</h2>
+            <p>La nostra tecnologia trasforma immagini grezze in dati strutturati in 4 passaggi intelligenti</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Acquisizione Flessibile</h3>
+                    <p>Carica foto di interi cassetti o di singoli reperti. Il sistema accetta immagini con individui multipli (es. insetti in scatola) o scatti di dettaglio con etichette storiche originali.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Riconoscimento Visivo</h3>
+                    <p>Per le foto d'insieme, la nostra AI identifica e isola automaticamente i singoli esemplari (Object Detection), preparandoli per la catalogazione individuale senza ritaglio manuale.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Decodifica Intelligente</h3>
+                    <p>Il motore OCR + LLM legge le etichette, anche manoscritte. L'AI non copia solo il testo, ma comprende il contesto distinguendo date, luoghi e nomi scientifici.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <h3>Dati Standardizzati</h3>
+                    <p>I dati vengono restituiti già puliti e strutturati secondo gli standard museali (Tassonomia, Darwin Core, ecc.), pronti per l'integrazione diretta nel tuo database.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
         <div class="workflow-container">
             <div class="section-header">
-                <h2>Come Funziona</h2>
-                <p>Due modalità operative per adattarsi alle vostre risorse</p>
+                <h2>Modalità di Servizio</h2> <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
             </div>
             <div class="workflow-options">
                 <div class="workflow-card">
                     <h3>
-                        <span class="workflow-number">1</span>
+                        <span class="workflow-number">A</span>
                         Modalità Autonoma
                     </h3>
-                    <p>Il vostro personale gestisce autonomamente la digitalizzazione</p>
+                    <p>Il vostro personale gestisce autonomamente la digitalizzazione con il nostro software</p>
                     <div class="workflow-steps">
                         <div class="workflow-step">
                             <span>Formazione iniziale del personale museale</span>
@@ -787,16 +863,16 @@
                 </div>
                 <div class="workflow-card">
                     <h3>
-                        <span class="workflow-number">2</span>
+                        <span class="workflow-number">B</span>
                         Servizio Completo
                     </h3>
-                    <p>Il nostro team si occupa dell'intero processo</p>
+                    <p>Il nostro team si reca in loco e si occupa dell'intero processo</p>
                     <div class="workflow-steps">
                         <div class="workflow-step">
                             <span>Analisi preliminare della collezione</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Il nostro team si reca presso il museo</span>
+                            <span>Il team NEST si reca presso il museo</span>
                         </div>
                         <div class="workflow-step">
                             <span>Digitalizzazione professionale dei reperti</span>
@@ -816,7 +892,6 @@
         </div>
     </section>
 
-    <!-- Newsletter Section -->
     <section id="newsletter" class="newsletter">
         <div class="newsletter-container">
             <h2>Unisciti alla Beta</h2>
@@ -831,7 +906,6 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section id="faq" class="faq">
         <div class="faq-container">
             <div class="section-header">
@@ -870,7 +944,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale. La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali e internazionali di catalogazione.</p>
+                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. Darwin Core). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -894,7 +968,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="contact-container">
             <div class="section-header">
@@ -918,7 +991,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 NEST. Tutti i diritti riservati. | Rendiamo ogni museo un patrimonio accessibile al mondo</p>
     </footer>
@@ -988,11 +1060,14 @@
             });
         }, observerOptions);
 
-        // Observe feature cards
-        document.querySelectorAll('.feature-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.dataset.animation = `fadeInUp 0.6s ${index * 0.1}s forwards`;
-            observer.observe(card);
+        // Observe feature cards and process steps
+        const animatedElements = document.querySelectorAll('.feature-card, .process-step, .workflow-card');
+        animatedElements.forEach((el, index) => {
+            el.style.opacity = '0';
+            // Aggiunge un leggero delay progressivo per gli elementi nello stesso contenitore
+            let delay = (index % 3) * 0.1; 
+            el.dataset.animation = `fadeInUp 0.6s ${delay}s forwards`;
+            observer.observe(el);
         });
     </script>
 </body>
