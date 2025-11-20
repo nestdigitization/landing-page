@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEST - Digitalizzazione Museale Intelligente</title>
     <style>
-        /* --- RESET E VARIABILI --- */
         * {
             margin: 0;
             padding: 0;
@@ -13,14 +12,11 @@
         }
 
         :root {
-            /* Palette Colori */
-            --color-primary: #899f6a;        /* Verde salvia - Flusso Natura */
-            --color-primary-light: #eff3eb;  /* Sfondo verde chiarissimo */
-            --color-secondary: #a47764;      /* Terra/Ruggine - Flusso Etichette */
-            --color-secondary-light: #f5efec;/* Sfondo terra chiarissimo */
-            --color-accent: #a89a8f;         /* Grigio caldo */
-            --color-light: #f8f9fa;          /* Sfondo generico */
-            --color-dark: #2c2c2c;           /* Testo scuro */
+            --color-primary: #899f6a;
+            --color-secondary: #a47764;
+            --color-accent: #a89a8f;
+            --color-light: #f0e9e0;
+            --color-dark: #2c2c2c;
             --color-white: #ffffff;
         }
 
@@ -29,10 +25,10 @@
             line-height: 1.6;
             color: var(--color-dark);
             background-color: var(--color-white);
-            overflow-x: hidden; /* Previene scroll orizzontale indesiderato */
+            overflow-x: hidden;
         }
 
-        /* --- HEADER & NAVIGAZIONE --- */
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -41,7 +37,6 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-            transition: box-shadow 0.3s;
         }
 
         nav {
@@ -60,19 +55,6 @@
             font-weight: 600;
             color: var(--color-primary);
             text-decoration: none;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            width: 40px; 
-            height: 40px; 
-            background: var(--color-primary); 
-            border-radius: 8px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-weight: bold;
         }
 
         .nav-links {
@@ -96,7 +78,7 @@
 
         .cta-button {
             background: var(--color-primary);
-            color: white !important;
+            color: white;
             padding: 0.7rem 1.8rem;
             border-radius: 25px;
             text-decoration: none;
@@ -112,10 +94,11 @@
             box-shadow: 0 10px 20px rgba(137, 159, 106, 0.3);
         }
 
+        /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             cursor: pointer;
         }
 
@@ -126,13 +109,13 @@
             transition: 0.3s;
         }
 
-        /* --- HERO SECTION --- */
+        /* Hero Section */
         .hero {
-            padding: 140px 5% 80px;
+            padding: 120px 5% 80px;
             min-height: 90vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #fcfcfc 0%, rgba(240, 233, 224, 0.3) 100%);
+            background: linear-gradient(135deg, var(--color-light) 0%, rgba(255, 255, 255, 0.8) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -148,8 +131,8 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 3.8rem);
-            line-height: 1.1;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.2;
             color: var(--color-dark);
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s;
@@ -157,27 +140,12 @@
 
         .hero-text h1 span {
             color: var(--color-primary);
-            position: relative;
-            white-space: nowrap;
-        }
-        
-        /* Sottolineatura creativa */
-        .hero-text h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: rgba(137, 159, 106, 0.2);
-            z-index: -1;
         }
 
         .tagline {
             font-size: 1.25rem;
-            color: var(--color-secondary);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
             animation: fadeInUp 0.8s 0.2s both;
         }
 
@@ -186,13 +154,12 @@
             line-height: 1.8;
             color: #555;
             margin-bottom: 2.5rem;
-            max-width: 500px;
             animation: fadeInUp 0.8s 0.4s both;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             animation: fadeInUp 0.8s 0.6s both;
         }
 
@@ -202,9 +169,10 @@
             padding: 0.7rem 1.8rem;
             border-radius: 25px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             transition: all 0.3s;
             border: 2px solid var(--color-primary);
+            cursor: pointer;
         }
 
         .secondary-button:hover {
@@ -212,71 +180,118 @@
             color: white;
         }
 
-        /* Hero Animation */
+        /* Visual Animation */
         .hero-visual {
             position: relative;
             height: 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             animation: fadeIn 1s 0.8s both;
         }
-        
-        /* Frame simulazione scansione */
-        .scan-frame {
-            width: 320px;
-            height: 420px;
-            border: 2px solid #e0e0e0;
-            background: white;
-            border-radius: 20px;
-            position: relative;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
 
-        .scan-beam {
+        .scan-animation {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 4px;
-            background: var(--color-primary);
-            box-shadow: 0 0 15px var(--color-primary);
-            animation: scanMove 3s ease-in-out infinite;
-            z-index: 10;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .scan-object {
+        .artifact-frame {
+            width: 300px;
+            height: 400px;
+            border: 3px solid var(--color-primary);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .scan-line {
             position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            animation: scan 3s infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .artifact-item {
+            position: absolute;
+            opacity: 0;
+            animation: appearItem 3s infinite;
+        }
+
+        .artifact-item:nth-child(2) {
+            top: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
             background: var(--color-secondary);
-            opacity: 0.2;
             border-radius: 50%;
         }
 
-        /* Quadrati di detection */
-        .detect-square {
+        .artifact-item:nth-child(3) {
+            top: 50%;
+            left: 30%;
+            width: 100px;
+            height: 80px;
+            background: var(--color-accent);
+            border-radius: 10px;
+        }
+
+        .artifact-item:nth-child(4) {
+            bottom: 20%;
+            right: 25%;
+            width: 70px;
+            height: 70px;
+            background: var(--color-light);
+            transform: rotate(45deg);
+        }
+
+        @keyframes appearItem {
+            0%, 30% { opacity: 0; }
+            40%, 90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .detection-box {
             position: absolute;
             border: 2px dashed var(--color-primary);
             background: rgba(137, 159, 106, 0.1);
             opacity: 0;
-            animation: detectionPop 3s infinite;
+            animation: detect 3s infinite;
         }
 
-        @keyframes scanMove {
-            0% { top: 0; }
-            50% { top: 100%; }
-            100% { top: 0; }
+        .detection-box:nth-child(5) {
+            top: 18%;
+            left: 18%;
+            width: 64px;
+            height: 64px;
+            animation-delay: 1s;
         }
 
-        @keyframes detectionPop {
-            0%, 30% { opacity: 0; transform: scale(0.8); }
-            35%, 70% { opacity: 1; transform: scale(1); }
-            80%, 100% { opacity: 0; }
+        .detection-box:nth-child(6) {
+            top: 48%;
+            left: 28%;
+            width: 104px;
+            height: 84px;
+            animation-delay: 1.5s;
         }
 
-        /* --- SEZIONE VANTAGGI --- */
+        @keyframes detect {
+            0%, 40% { opacity: 0; }
+            50%, 80% { opacity: 1; }
+            90%, 100% { opacity: 0; }
+        }
+
+        /* Features Section */
         .features {
-            padding: 100px 5%;
+            padding: 80px 5%;
             background: white;
         }
 
@@ -295,6 +310,7 @@
         .section-header p {
             font-size: 1.1rem;
             color: #666;
+            line-height: 1.8;
         }
 
         .feature-cards {
@@ -306,284 +322,162 @@
         }
 
         .feature-card {
-            padding: 2.5rem;
+            padding: 2rem;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
             text-align: center;
-            border: 1px solid #f0f0f0;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
         }
 
         .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            padding: 15px;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
             background: var(--color-light);
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        /* --- NUOVO CSS PER LA SEZIONE "COME FUNZIONA" (SPLIT FLOW) --- */
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* NEW SECTION: How It Works (Tech Process) */
         .how-it-works {
-            padding: 100px 5%;
-            background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-light) 100%);
+            padding: 80px 5%;
+            background: var(--color-light); /* Alternanza colore */
         }
 
-        .tech-container {
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--color-light); /* Numero grande e sottile sullo sfondo */
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            position: relative; /* Per stare sopra il numero */
+        }
+
+        .step-content p {
+            font-size: 0.95rem;
+            color: #555;
+            position: relative;
+        }
+
+        /* RENAMED SECTION: Services (ex Workflow) */
+        .services {
+            padding: 80px 5%;
+            background: white; /* Alternanza colore */
+        }
+
+        .workflow-container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Fase Comune (Step 1) */
-        .common-phase-wrapper {
-            display: flex;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 60px; /* Spazio per il connettore */
+        .workflow-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
         }
 
-        .common-phase-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            width: 2px;
-            height: 60px;
-            background: #d0d0d0;
-            transform: translateX(-50%);
-            z-index: 0;
-        }
-
-        .phase-card {
-            background: white;
+        .workflow-card {
+            background: white; /* Se la sezione è bianca, la card potrebbe avere un bordo o background leggerissimo */
             padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-            border-top: 6px solid var(--color-dark);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
         }
 
-        .phase-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--color-light);
+        .workflow-card h3 {
+            font-size: 1.6rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workflow-number {
+            background: var(--color-primary);
+            color: white;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 1.5rem;
-            color: var(--color-dark);
-        }
-
-        /* Biforcazione visiva (le linee curve) */
-        .split-connector {
-            display: block;
-            height: 40px;
-            width: 50%; /* Larghezza della biforcazione */
-            border-top: 2px solid #d0d0d0;
-            border-left: 2px solid #d0d0d0;
-            border-right: 2px solid #d0d0d0;
-            border-radius: 25px 25px 0 0;
-            margin: -60px auto 30px; /* Posizionamento sopra le colonne */
-            position: relative;
-            z-index: 0;
-        }
-
-        /* Griglia dei due flussi */
-        .flows-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            position: relative;
-        }
-
-        /* Stili colonne flussi */
-        .flow-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 30px;
-            border-radius: 25px;
-            position: relative;
-        }
-
-        /* Flusso 1: Verde (Detection/Inventory) */
-        .flow-1 {
-            background-color: var(--color-primary-light);
-            border: 1px solid rgba(137, 159, 106, 0.3);
-        }
-        .flow-1 .step-title { color: var(--color-primary); }
-        .flow-1 .mids-badge { background: var(--color-primary); }
-        .flow-1 .flow-icon { color: var(--color-primary); }
-
-        /* Flusso 2: Terra (Labels/Archive) */
-        .flow-2 {
-            background-color: var(--color-secondary-light);
-            border: 1px solid rgba(164, 119, 100, 0.3);
-        }
-        .flow-2 .step-title { color: var(--color-secondary); }
-        .flow-2 .mids-badge { background: var(--color-secondary); }
-        .flow-2 .flow-icon { color: var(--color-secondary); }
-
-        .flow-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .flow-header h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .flow-header p {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            font-weight: 500;
-        }
-
-        /* Card step interni */
-        .flow-step-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            position: relative;
-            border-left: 4px solid transparent; /* Bordo colorato a sinistra */
-        }
-
-        .flow-1 .flow-step-card { border-left-color: var(--color-primary); }
-        .flow-2 .flow-step-card { border-left-color: var(--color-secondary); }
-
-        .step-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #999;
-            margin-bottom: 0.5rem;
-            display: block;
-            font-weight: 700;
-        }
-
-        .step-title {
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            font-size: 1.15rem;
-        }
-
-        .flow-step-card p {
-            font-size: 0.95rem;
-            color: #666;
-        }
-
-        /* MIDS Badge (Il risultato finale) */
-        .mids-result {
-            margin-top: 20px;
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-
-        .mids-badge {
-            display: inline-block;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            margin-bottom: 0.5rem;
-        }
-
-        .mids-desc {
-            display: block;
-            font-size: 0.85rem;
-            color: #666;
-            font-weight: 600;
-        }
-
-        /* --- SERVIZI (Ex Workflow) --- */
-        .services {
-            padding: 100px 5%;
-            background: white;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            padding: 3rem;
-            border-radius: 25px;
-            border: 1px solid #eee;
-            background: white;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--color-primary);
-        }
-
-        .service-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--color-dark);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
             font-weight: bold;
-            margin-bottom: 1.5rem;
+            font-size: 1rem;
         }
 
-        .service-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--color-primary);
+        .workflow-steps {
+            margin-top: 1.5rem;
         }
 
-        .service-list {
-            list-style: none;
-            margin-top: 2rem;
-        }
-
-        .service-list li {
-            margin-bottom: 1rem;
+        .workflow-step {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #555;
+            align-items: start;
+            margin-bottom: 1.2rem;
+            padding-left: 20px;
+            position: relative;
         }
 
-        .service-list li::before {
-            content: '✓';
+        .workflow-step::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
             color: var(--color-primary);
             font-weight: bold;
-            font-size: 1.2rem;
         }
 
-        /* --- NEWSLETTER & FOOTER --- */
+        /* Newsletter Section */
         .newsletter {
             padding: 80px 5%;
-            background: linear-gradient(135deg, var(--color-primary), #7a8e5e);
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             color: white;
             text-align: center;
         }
@@ -594,91 +488,174 @@
         }
 
         .newsletter h2 {
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            font-size: 2rem;
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
         }
 
         .newsletter-form {
             display: flex;
-            gap: 10px;
+            gap: 1rem;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 2rem;
         }
 
         .newsletter-form input {
-            padding: 1rem 1.5rem;
-            border-radius: 30px;
-            border: none;
             flex: 1;
             min-width: 250px;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 25px;
             font-size: 1rem;
         }
 
         .newsletter-form button {
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            border: none;
             background: white;
             color: var(--color-primary);
-            font-weight: bold;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.3s;
         }
 
         .newsletter-form button:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
         }
 
-        /* FAQ */
+        /* FAQ Section */
         .faq {
-            padding: 100px 5%;
-            background: var(--color-light);
+            padding: 80px 5%;
+            background: var(--color-light); /* Alternanza */
         }
-        
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .faq-item {
-            background: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            background: white;
         }
-        
+
         .faq-question {
+            background: white;
             padding: 1.5rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            transition: background 0.3s;
         }
-        
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            transition: transform 0.3s;
+        }
+
         .faq-answer {
+            padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 1.5rem;
+            transition: max-height 0.3s, padding 0.3s;
+            background: white;
+            border-top: 1px solid #f0f0f0;
         }
-        
+
         .faq-item.active .faq-answer {
-            padding-bottom: 1.5rem;
-            max-height: 500px; /* approximate max height */
+            padding: 1.5rem;
+            max-height: 500px;
         }
-        
-        .faq-toggle { transition: transform 0.3s; }
-        .faq-item.active .faq-toggle { transform: rotate(45deg); }
 
-        footer {
-            background: var(--color-dark);
-            color: #aaa;
-            padding: 3rem 5%;
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
-            font-size: 0.9rem;
         }
 
-        /* --- MEDIA QUERIES --- */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            background: white;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--color-dark);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+
+        .linkedin-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background: var(--color-dark);
+            color: white;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -689,50 +666,71 @@
                 background: white;
                 flex-direction: column;
                 padding: 2rem;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             }
-            .nav-links.active { display: flex; }
-            .mobile-menu-toggle { display: flex; }
-            
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-buttons { justify-content: center; }
-            .hero-visual { display: none; } /* Semplifichiamo su mobile */
-            
-            /* Resettiamo il flow grafico su mobile per metterlo in colonna semplice */
-            .flows-grid { grid-template-columns: 1fr; gap: 20px; }
-            .split-connector { display: none; }
-            .common-phase-wrapper::after { display: none; }
-            .services-grid { grid-template-columns: 1fr; }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-visual {
+                height: 400px;
+            }
+
+            .workflow-options {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background: #4caf50;
+            color: white;
+            border-radius: 5px;
+            margin-top: 1rem;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.3s;
         }
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="#" class="logo">
-                <div class="logo-icon">N</div>
+                <div style="width: 45px; height: 45px; background: var(--color-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">N</div>
                 <span>NEST</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#features">Vantaggi</a></li>
-                <li><a href="#how-it-works">Come Funziona</a></li>
-                <li><a href="#services">Servizi</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#newsletter" class="cta-button">Accesso Beta</a></li>
+                <li><a href="#how-it-works">Come Funziona</a></li> <li><a href="#services">Servizi</a></li> <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contatti</a></li>
+                <li><a href="#newsletter" class="cta-button">Resta Aggiornato</a></li>
             </ul>
-            <div class="mobile-menu-toggle" onclick="toggleMenu()">
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -744,22 +742,26 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Digitalizzazione Museale <span>Intelligente</span></h1>
-                <p class="tagline">Dalla foto al database scientifico in pochi secondi</p>
+                <p class="tagline">Rendiamo ogni museo un patrimonio accessibile al mondo</p>
                 <p class="hero-description">
-                    La piattaforma AI che trasforma i depositi in dati. Semplifichiamo la catalogazione delle collezioni di storia naturale, automatizzando il riconoscimento degli esemplari e la trascrizione delle etichette storiche.
+                    Semplifichiamo la digitalizzazione delle collezioni museali con strumenti personalizzabili su misura. 
+                    La nostra piattaforma AI-assistita trasforma il processo di catalogazione, 
+                    rendendo accessibili anche i tesori nascosti nei depositi.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#newsletter" class="cta-button">Richiedi Demo</a>
-                    <a href="#how-it-works" class="secondary-button">Scopri la Tecnologia</a>
-                </div>
+                    <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
+                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
             </div>
             <div class="hero-visual">
-                <div class="scan-frame">
-                    <div class="scan-beam"></div>
-                    <div class="scan-object" style="top: 20%; left: 20%; width: 50px; height: 50px;"></div>
-                    <div class="scan-object" style="top: 50%; left: 60%; width: 70px; height: 70px;"></div>
-                    <div class="detect-square" style="top: 18%; left: 18%; width: 54px; height: 54px;"></div>
-                    <div class="detect-square" style="top: 48%; left: 58%; width: 74px; height: 74px; animation-delay: 1s;"></div>
+                <div class="scan-animation">
+                    <div class="artifact-frame">
+                        <div class="scan-line"></div>
+                        <div class="artifact-item"></div>
+                        <div class="artifact-item"></div>
+                        <div class="artifact-item"></div>
+                        <div class="detection-box"></div>
+                        <div class="detection-box"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -767,234 +769,305 @@
 
     <section id="features" class="features">
         <div class="section-header">
-            <h2>Perché scegliere NEST</h2>
-            <p>Tecnologia sviluppata su misura per le esigenze dei curatori e dei musei</p>
+            <h2>I Vantaggi di NEST</h2>
+            <p>Una soluzione completa pensata per le esigenze specifiche dei musei di storia naturale e non solo</p>
         </div>
         <div class="feature-cards">
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3>Velocità Estrema</h3>
-                <p>Riduci del 80% il tempo di data entry. L'AI pre-compila i campi, tu devi solo validare.</p>
+                <h3>Velocità</h3>
+                <p>Digitalizza intere collezioni in una frazione del tempo tradizionale. Il nostro sistema AI-assistito accelera drasticamente il processo di catalogazione.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔬</div>
-                <h3>Rigore Scientifico</h3>
-                <p>Output in formato Darwin Core nativo. Supporto tassonomico integrato e gestione dei sinonimi.</p>
+                <div class="feature-icon">🤖</div>
+                <h3>Automazione</h3>
+                <p>Riconoscimento automatico di oggetti e specie, lettura OCR delle etichette, standardizzazione dei metadati. L'AI lavora per te, tu mantieni il controllo.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔓</div>
-                <h3>Flessibilità Totale</h3>
-                <p>Dalle scatole entomologiche piene ai singoli campioni in alcool: un solo software per tutto.</p>
+                <div class="feature-icon">🎯</div>
+                <h3>Adattabilità</h3>
+                <p>Personalizzazione completa per ogni tipo di collezione. Dal museo di storia naturale all'arte, ci adattiamo alle vostre esigenze specifiche.</p>
             </div>
         </div>
     </section>
 
     <section id="how-it-works" class="how-it-works">
         <div class="section-header">
-            <h2>Un Unico Sistema, Due Percorsi di Valore</h2>
-            <p>La nostra tecnologia si adatta al materiale di partenza per massimizzare il risultato scientifico (MIDS)</p>
+            <h2>Dalla Foto al Database</h2>
+            <p>La nostra tecnologia trasforma immagini grezze in dati strutturati in 4 passaggi intelligenti</p>
         </div>
-
-        <div class="tech-container">
-            
-            <div class="common-phase-wrapper">
-                <div class="phase-card">
-                    <div class="phase-icon">📸</div>
-                    <span class="step-label">FASE 1: ACQUISIZIONE UNIFICATA</span>
-                    <h3>Input Flessibile</h3>
-                    <p>Carica qualsiasi tipo di immagine: foto di interi cassetti entomologici, scatole con reperti misti, o scatti di singoli campioni. Il sistema accetta tutto in un unico punto d'ingresso.</p>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <div class="step-content">
+                    <h3>Acquisizione Flessibile</h3>
+                    <p>Carica foto di interi cassetti o di singoli reperti. Il sistema accetta immagini con individui multipli (es. insetti in scatola) o scatti di dettaglio con etichette storiche originali.</p>
                 </div>
             </div>
-
-            <div class="split-connector"></div>
-
-            <div class="flows-grid">
-                
-                <div class="flow-column flow-1">
-                    <div class="flow-header">
-                        <h3>Flusso Analisi Massiva</h3>
-                        <p>Ottimizzato per inventariare rapidamente scatole con molti esemplari (es. Insetti)</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 2: RICONOSCIMENTO VISIVO</span>
-                        <div class="step-title">Object Detection</div>
-                        <p>L'AI scansiona la foto d'insieme. Individua, conta e separa i <strong>singoli individui</strong>, creando ritagli digitali per ciascun reperto.</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 3: DECODIFICA INTELLIGENTE</span>
-                        <div class="step-title">Classificazione Tassonomica</div>
-                        <p>Agli oggetti isolati viene assegnata una classe predittiva e generati i metadati di base (Tassonomia presunta, Codice univoco).</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 4: DATI STANDARDIZZATI</span>
-                        <div class="step-title">Export Inventariale</div>
-                        <p>Output dei dati relativi al codice assegnato, specie e tipo nomenclaturale.</p>
-                    </div>
-
-                    <div class="mids-result">
-                        <div class="mids-badge">LIVELLO MIDS-1</div>
-                        <span class="mids-desc">Basic Record & Inventory</span>
-                    </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-content">
+                    <h3>Riconoscimento Visivo</h3>
+                    <p>Per le foto d'insieme, la nostra AI identifica e isola automaticamente i singoli esemplari (Object Detection), preparandoli per la catalogazione individuale senza ritaglio manuale.</p>
                 </div>
-
-                <div class="flow-column flow-2">
-                    <div class="flow-header">
-                        <h3>Flusso Analisi Profonda</h3>
-                        <p>Ottimizzato per digitalizzare reperti singoli con etichette e cartellini storici</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 2: RICONOSCIMENTO VISIVO</span>
-                        <div class="step-title">Label Extraction</div>
-                        <p>L'AI identifica specificamente i <strong>cartellini</strong> presenti nella foto, isolandoli dal reperto per massimizzare la leggibilità.</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 3: DECODIFICA INTELLIGENTE</span>
-                        <div class="step-title">OCR + LLM Interpretation</div>
-                        <p>Il testo viene estratto (OCR) e un modello di linguaggio (LLM) lo interpreta, correggendo errori di lettura e capendo il contesto (Date, Luoghi, Autori).</p>
-                    </div>
-
-                    <div class="flow-step-card">
-                        <span class="step-label">FASE 4: DATI STANDARDIZZATI</span>
-                        <div class="step-title">Darwin Core Standard</div>
-                        <p>I dati vengono validati e strutturati nei campi standard museali pronti per l'uso scientifico.</p>
-                    </div>
-
-                    <div class="mids-result">
-                        <div class="mids-badge">LIVELLO MIDS-3</div>
-                        <span class="mids-desc">Extended Record & Rich Data</span>
-                    </div>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-content">
+                    <h3>Decodifica Intelligente</h3>
+                    <p>Il motore OCR + LLM legge le etichette, anche manoscritte. L'AI non copia solo il testo, ma comprende il contesto distinguendo date, luoghi e nomi scientifici.</p>
                 </div>
-
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <div class="step-content">
+                    <h3>Dati Standardizzati</h3>
+                    <p>I dati vengono restituiti già puliti e strutturati secondo gli standard museali (Tassonomia, Darwin Core, ecc.), pronti per l'integrazione diretta nel tuo database.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="services" class="services">
-        <div class="section-header">
-            <h2>Modalità di Servizio</h2>
-            <p>Scegli come integrare NEST nella tua istituzione</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-badge">MODALITÀ SAAS</div>
-                <h3>Gestione Autonoma</h3>
-                <p>Licenza software per il tuo team. Noi vi diamo lo strumento, voi digitalizzate al vostro ritmo.</p>
-                <ul class="service-list">
-                    <li>Formazione iniziale del personale</li>
-                    <li>Configurazione cloud dedicata</li>
-                    <li>Acquisizione fotografica autonoma</li>
-                    <li>Validazione dati interna</li>
-                </ul>
+        <div class="workflow-container">
+            <div class="section-header">
+                <h2>Modalità di Servizio</h2> <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
             </div>
-            <div class="service-card" style="border-color: var(--color-primary);">
-                <div class="service-badge" style="background: var(--color-primary);">FULL SERVICE</div>
-                <h3>Servizio Completo</h3>
-                <p>Il team NEST viene nel tuo museo. Pensiamo a tutto noi, dall'apertura dei cassetti al database finale.</p>
-                <ul class="service-list">
-                    <li>Analisi preliminare della collezione</li>
-                    <li>Team di esperti in loco</li>
-                    <li>Setup fotografico professionale</li>
-                    <li>Consegna database "Chiavi in mano"</li>
-                </ul>
+            <div class="workflow-options">
+                <div class="workflow-card">
+                    <h3>
+                        <span class="workflow-number">A</span>
+                        Modalità Autonoma
+                    </h3>
+                    <p>Il vostro personale gestisce autonomamente la digitalizzazione con il nostro software</p>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <span>Formazione iniziale del personale museale</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Configurazione personalizzata della piattaforma</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Acquisizione fotografica in situ dei reperti</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Elaborazione AI-assistita di immagini e metadati</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Revisione e validazione da parte dell'operatore</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Integrazione nel database standardizzato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <h3>
+                        <span class="workflow-number">B</span>
+                        Servizio Completo
+                    </h3>
+                    <p>Il nostro team si reca in loco e si occupa dell'intero processo</p>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <span>Analisi preliminare della collezione</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Il team NEST si reca presso il museo</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Digitalizzazione professionale dei reperti</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Elaborazione e strutturazione dei dati</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Consegna del database completo</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Supporto continuativo e aggiornamenti</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="newsletter" class="newsletter">
         <div class="newsletter-container">
-            <h2>Partecipa alla Rivoluzione</h2>
-            <p>Iscriviti per ricevere aggiornamenti sul lancio della Beta e case studies sui primi musei digitalizzati.</p>
-            <form class="newsletter-form" onsubmit="alert('Grazie! Ti sei iscritto alla lista d\'attesa.'); return false;">
-                <input type="email" placeholder="La tua email istituzionale" required>
-                <button type="submit">Invia Richiesta</button>
+            <h2>Unisciti alla Beta</h2>
+            <p>Sii tra i primi a rivoluzionare la digitalizzazione del tuo museo. Ricevi aggiornamenti sul lancio e dettagli sul pricing.</p>
+            <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" placeholder="La tua email" required>
+                <button type="submit">Richiedi Accesso</button>
             </form>
+            <div class="success-message" id="successMessage">
+                Grazie per l'interesse! Ti contatteremo presto con maggiori dettagli.
+            </div>
         </div>
     </section>
 
     <section id="faq" class="faq">
         <div class="faq-container">
-            <div class="section-header"><h2>Domande Frequenti</h2></div>
-            
+            <div class="section-header">
+                <h2>Domande Frequenti</h2>
+            </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    Che differenza c'è tra MIDS-1 e MIDS-3?
+                    <h3>Che tipo di musei possono utilizzare NEST?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Il livello MIDS-1 (Minimum Information about a Digital Specimen) corrisponde a un inventario di base (c'è un oggetto, ha un ID). Il MIDS-3 è un record completo con dati ricchi, inclusi località, date ed etichette trascritte. NEST supporta entrambi a seconda delle necessità.</p>
+                    <p>NEST è progettato per adattarsi a qualsiasi tipo di museo. Abbiamo iniziato con i musei di storia naturale come early adopter, ma la nostra piattaforma è completamente personalizzabile per collezioni d'arte, archeologia, etnografia, e qualsiasi altra tipologia di patrimonio culturale.</p>
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    Il software legge anche le etichette scritte a mano?
+                    <h3>È necessaria una formazione tecnica per utilizzare il software?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Assolutamente sì. Utilizziamo modelli LLM avanzati (Large Language Models) capaci di interpretare calligrafie storiche complesse e contestualizzare le abbreviazioni del XIX e XX secolo.</p>
+                    <p>No, il nostro software è progettato per essere intuitivo e user-friendly. Offriamo una formazione iniziale breve e manuali di supporto dettagliati. Il personale museale può iniziare a digitalizzare dopo poche ore di training.</p>
                 </div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    Posso esportare i dati per GBIF?
+                    <h3>Come funziona l'intelligenza artificiale nel sistema?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Sì, l'output nativo è conforme allo standard Darwin Core, rendendo i dati immediatamente pronti per la pubblicazione su aggregatori globali come GBIF.</p>
+                    <p>L'AI agisce come assistente: riconosce automaticamente oggetti e specie, legge le etichette tramite OCR, e suggerisce la standardizzazione dei dati. Tuttavia, tutte le decisioni finali rimangono sotto il controllo dell'operatore umano, garantendo accuratezza scientifica e qualità dei contenuti.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Quali standard di catalogazione supportate?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. Darwin Core). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Quando sarà disponibile la versione completa?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Attualmente abbiamo un prototipo funzionante e stiamo preparando il lancio della beta. Iscrivendoti alla newsletter riceverai aggiornamenti tempestivi sul lancio e avrai accesso prioritario alla piattaforma.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Posso vedere una demo del sistema?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Certamente! Una volta iscritto alla newsletter per l'accesso beta, potrai richiedere una demo personalizzata. Ti mostreremo come NEST può adattarsi specificamente alle esigenze del tuo museo.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="section-header">
+                <h2>Contattaci</h2>
+                <p>Vuoi saperne di più? Connettiti con il nostro team su LinkedIn</p>
+            </div>
+            <div class="contact-links">
+                <a href="https://linkedin.com/company/nest-digital" class="linkedin-link" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#0077b5">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    NEST su LinkedIn
+                </a>
+                <a href="https://linkedin.com/in/founder-nest" class="linkedin-link" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#0077b5">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    Team NEST
+                </a>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2025 NEST - Natural Science Digitization. Tutti i diritti riservati.</p>
+        <p>&copy; 2024 NEST. Tutti i diritti riservati. | Rendiamo ogni museo un patrimonio accessibile al mondo</p>
     </footer>
 
     <script>
-        // Gestione Menu Mobile
-        function toggleMenu() {
-            const nav = document.querySelector('.nav-links');
-            nav.classList.toggle('active');
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
         }
 
-        // Gestione FAQ
+        // FAQ Toggle
         function toggleFaq(element) {
-            const item = element.parentElement;
-            item.classList.toggle('active');
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
         }
 
-        // Animazioni allo scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+        // Newsletter Form
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            event.target.reset();
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
 
-        // Elementi da animare
-        document.querySelectorAll('.feature-card, .phase-card, .flow-column, .service-card').forEach(el => {
-            el.style.opacity = '0'; 
-            observer.observe(el);
-        });
-
-        // Smooth Scroll
+        // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                // Chiude menu mobile se aperto
-                document.querySelector('.nav-links').classList.remove('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
             });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.6s forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards and process steps
+        const animatedElements = document.querySelectorAll('.feature-card, .process-step, .workflow-card');
+        animatedElements.forEach((el, index) => {
+            el.style.opacity = '0';
+            // Aggiunge un leggero delay progressivo per gli elementi nello stesso contenitore
+            let delay = (index % 3) * 0.1; 
+            el.dataset.animation = `fadeInUp 0.6s ${delay}s forwards`;
+            observer.observe(el);
         });
     </script>
 </body>
