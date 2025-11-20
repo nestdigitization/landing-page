@@ -358,53 +358,283 @@
             line-height: 1.6;
         }
 
-        /* NEW SECTION: How It Works (Tech Process) */
+        /* NEW SECTION: How It Works (Tech Process) - Dual Workflows */
         .how-it-works {
             padding: 80px 5%;
-            background: var(--color-light); /* Alternanza colore */
+            background: var(--color-light);
         }
 
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .process-step {
+        /* Common upload step */
+        .common-upload-step {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            text-align: center;
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
         }
 
-        .step-number {
+        .upload-icon {
             font-size: 4rem;
-            font-weight: bold;
-            color: var(--color-light); /* Numero grande e sottile sullo sfondo */
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            opacity: 0.5;
-            line-height: 1;
-        }
-
-        .step-content h3 {
-            font-size: 1.3rem;
-            color: var(--color-primary);
             margin-bottom: 1rem;
-            position: relative; /* Per stare sopra il numero */
+            animation: pulse 2s infinite;
         }
 
-        .step-content p {
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .common-upload-step h3 {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .common-upload-step p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Workflow split arrows */
+        .workflow-split-arrows {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 200px;
+            margin: 50px auto 60px;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arrow-line {
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, var(--color-primary), transparent);
+        }
+
+        .arrow-line {
+            background: linear-gradient(to bottom, #7ba85c, #7ba85c);
+        }
+
+        .arrow-line {
+            background: linear-gradient(to bottom, #c48969, #c48969);
+        }
+
+
+        .arrow-left{
+            color: #7ba85c;
+        }
+
+        .arrow-right{
+            color: #c48969;
+        }
+
+        /* Dual workflows container */
+        .dual-workflows {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+        }
+
+        /* Workflow path cards */
+        .workflow-path {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .workflow-path:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .workflow-path-1 {
+            border-top: 5px solid #7ba85c;
+        }
+
+        .workflow-path-2 {
+            border-top: 5px solid #c48969;
+        }
+
+        /* Workflow headers */
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mids-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mids-1 {
+            background: linear-gradient(135deg, #7ba85c, #9bc17a);
+        }
+
+        .mids-3 {
+            background: linear-gradient(135deg, #c48969, #d4a085);
+        }
+
+        .workflow-header h3 {
+            font-size: 1.6rem;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-subtitle {
+            font-size: 1rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Workflow process steps */
+        .workflow-process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .workflow-process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step-number-circle {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .workflow-path-1 .step-visual-1 .step-number-circle {
+            background: linear-gradient(135deg, #7ba85c, #9bc17a);
+        }
+
+        .workflow-path-1 .step-decode-1 .step-number-circle {
+            background: linear-gradient(135deg, #6a9450, #7ba85c);
+        }
+
+        .workflow-path-1 .step-data-1 .step-number-circle {
+            background: linear-gradient(135deg, #5a8444, #6a9450);
+        }
+
+        .workflow-path-2 .step-visual-2 .step-number-circle {
+            background: linear-gradient(135deg, #c48969, #d4a085);
+        }
+
+        .workflow-path-2 .step-decode-2 .step-number-circle {
+            background: linear-gradient(135deg, #b4795c, #c48969);
+        }
+
+        .workflow-path-2 .step-data-2 .step-number-circle {
+            background: linear-gradient(135deg, #a46950, #b4795c);
+        }
+
+        .step-content-box {
+            flex: 1;
+            background: #f8f8f8;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid;
+        }
+
+        .workflow-path-1 .step-visual-1 .step-content-box {
+            border-left-color: #7ba85c;
+        }
+
+        .workflow-path-1 .step-decode-1 .step-content-box {
+            border-left-color: #6a9450;
+        }
+
+        .workflow-path-1 .step-data-1 .step-content-box {
+            border-left-color: #5a8444;
+        }
+
+        .workflow-path-2 .step-visual-2 .step-content-box {
+            border-left-color: #c48969;
+        }
+
+        .workflow-path-2 .step-decode-2 .step-content-box {
+            border-left-color: #b4795c;
+        }
+
+        .workflow-path-2 .step-data-2 .step-content-box {
+            border-left-color: #a46950;
+        }
+
+        .step-content-box h4 {
+            font-size: 1.2rem;
+            color: var(--color-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .step-content-box p {
             font-size: 0.95rem;
             color: #555;
-            position: relative;
+            line-height: 1.6;
         }
+
+        .step-connector {
+            position: absolute;
+            left: 22px;
+            top: 45px;
+            width: 2px;
+            height: calc(100% + 1.5rem);
+            background: linear-gradient(to bottom, #ddd, transparent);
+        }
+
+        .workflow-process-step:last-child .step-connector {
+            display: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 968px) {
+            .dual-workflows {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .workflow-split-arrows {
+                gap: 100px;
+            }
+
+            .arrow-line {
+                height: 60px;
+            }
+
+        }
+
 
         /* RENAMED SECTION: Services (ex Workflow) */
         .services {
@@ -592,24 +822,105 @@
             transform: rotate(45deg);
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 80px 5%;
-            background: white;
-        }
+    /* Contact Section */
+    .contact {
+        padding: 80px 5%;
+        background: white;
+    }
 
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 3rem;
+    }
+
+    .team-member {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .member-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+        overflow: hidden;
+        border: 4px solid var(--color-light);
+        background: var(--color-light);
+    }
+
+    .member-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .member-name {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--color-dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .member-role {
+        font-size: 1rem;
+        color: var(--color-primary);
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+    }
+
+    .member-description {
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .linkedin-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.7rem 1.5rem;
+        background: #0077b5;
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+
+    .linkedin-button:hover {
+        background: #006399;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3);
+    }
+
+    .linkedin-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    @media (max-width: 768px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
+    }
 
         .linkedin-link {
             display: inline-flex;
@@ -794,35 +1105,98 @@
     <section id="how-it-works" class="how-it-works">
         <div class="section-header">
             <h2>Dalla Foto al Database</h2>
-            <p>La nostra tecnologia trasforma immagini grezze in dati strutturati in 4 passaggi intelligenti</p>
+            <p>Due percorsi di digitalizzazione intelligente per ogni esigenza del museo</p>
         </div>
-        <div class="process-steps">
-            <div class="process-step">
-                <div class="step-number">01</div>
-                <div class="step-content">
-                    <h3>Acquisizione Flessibile</h3>
-                    <p>Carica foto di interi cassetti o di singoli reperti. Il sistema accetta immagini con individui multipli (es. insetti in scatola) o scatti di dettaglio con etichette storiche originali.</p>
+        
+        <!-- Initial common step -->
+        <div class="common-upload-step">
+            <div class="upload-icon">📸</div>
+            <h3>Caricamento Immagini</h3>
+            <p>Carica le foto dei tuoi reperti: scatole con più oggetti o singoli campioni con cartellini</p>
+        </div>
+
+        <div class="workflow-split-arrows">
+            <div class="arrow-left">
+                <div class="arrow-line"></div>
+            </div>
+            <div class="arrow-right">
+                <div class="arrow-line"></div>
+            </div>
+        </div>
+
+        <!-- Two parallel workflows -->
+        <div class="dual-workflows">
+            <!-- Workflow 1: Riconoscimento individui -->
+            <div class="workflow-path workflow-path-1">
+                <div class="workflow-header">
+                    <div class="mids-badge mids-1">MIDS 1</div>
+                    <h3>Flusso 1: Riconoscimento Individui</h3>
+                    <p class="workflow-subtitle">Digitalizzazione rapida di collezioni multiple</p>
+                </div>
+                
+                <div class="workflow-process-steps">
+                    <div class="workflow-process-step step-visual-1">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-content-box">
+                            <h4>🔍 Riconoscimento Visivo</h4>
+                            <p>Identificazione automatica dei singoli individui nella foto, separazione dal background</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    
+                    <div class="workflow-process-step step-decode-1">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-content-box">
+                            <h4>🤖 Decodifica Intelligente</h4>
+                            <p>Assegnazione di classi tassonomiche agli oggetti riconosciuti</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    
+                    <div class="workflow-process-step step-data-1">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-content-box">
+                            <h4>📊 Dati Standardizzati</h4>
+                            <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="process-step">
-                <div class="step-number">02</div>
-                <div class="step-content">
-                    <h3>Riconoscimento Visivo</h3>
-                    <p>Per le foto d'insieme, la nostra AI identifica e isola automaticamente i singoli esemplari (Object Detection), preparandoli per la catalogazione individuale senza ritaglio manuale.</p>
+
+            <!-- Workflow 2: Copiatura cartellini -->
+            <div class="workflow-path workflow-path-2">
+                <div class="workflow-header">
+                    <div class="mids-badge mids-3">MIDS 3</div>
+                    <h3>Flusso 2: Digitalizzazione Cartellini</h3>
+                    <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
                 </div>
-            </div>
-            <div class="process-step">
-                <div class="step-number">03</div>
-                <div class="step-content">
-                    <h3>Decodifica Intelligente</h3>
-                    <p>Il motore OCR + LLM legge le etichette, anche manoscritte. L'AI non copia solo il testo, ma comprende il contesto distinguendo date, luoghi e nomi scientifici.</p>
-                </div>
-            </div>
-            <div class="process-step">
-                <div class="step-number">04</div>
-                <div class="step-content">
-                    <h3>Dati Standardizzati</h3>
-                    <p>I dati vengono restituiti già puliti e strutturati secondo gli standard museali (Tassonomia, Darwin Core, ecc.), pronti per l'integrazione diretta nel tuo database.</p>
+                
+                <div class="workflow-process-steps">
+                    <div class="workflow-process-step step-visual-2">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-content-box">
+                            <h4>🔍 Riconoscimento Visivo</h4>
+                            <p>Riconoscimento e isolamento dei cartellini dalla foto</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    
+                    <div class="workflow-process-step step-decode-2">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-content-box">
+                            <h4>🤖 Decodifica Intelligente</h4>
+                            <p>OCR + LLM per estrazione e interpretazione del testo</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    
+                    <div class="workflow-process-step step-data-2">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-content-box">
+                            <h4>📊 Dati Standardizzati</h4>
+                            <p>Dati validati in formato Darwin Core standard per musei</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -971,22 +1345,82 @@
     <section id="contact" class="contact">
         <div class="contact-container">
             <div class="section-header">
-                <h2>Contattaci</h2>
-                <p>Vuoi saperne di più? Connettiti con il nostro team su LinkedIn</p>
+                <h2>Il Nostro Team</h2>
+                <p>Incontra le persone che stanno rivoluzionando la digitalizzazione museale</p>
             </div>
-            <div class="contact-links">
-                <a href="https://linkedin.com/company/nest-digital" class="linkedin-link" target="_blank">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#0077b5">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                    NEST su LinkedIn
-                </a>
-                <a href="https://linkedin.com/in/founder-nest" class="linkedin-link" target="_blank">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#0077b5">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                    Team NEST
-                </a>
+            
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://via.placeholder.com/150" alt="Andrea Cerofolini">
+                    </div>
+                    <h3 class="member-name">Andrea Cerofolini</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-description">
+                        Esperto in digitalizzazione museale con 10+ anni di esperienza nel settore culturale
+                    </p>
+                    <a href="https://linkedin.com/in/nome-cognome" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://via.placeholder.com/150" alt="Michele Bertoncini">
+                    </div>
+                    <h3 class="member-name">Michele Bertoncini</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-description">
+                        Ingegnere AI specializzato in computer vision e machine learning applicato ai beni culturali
+                    </p>
+                    <a href="https://linkedin.com/in/nome-cognome" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://via.placeholder.com/150" alt="Andres">
+                    </div>
+                    <h3 class="member-name">Andres</h3>
+                    <p class="member-role">CTO</p>
+                    <p class="member-description">
+                        Figurante nei sobborghi di Lucca e assiduo frequentatore di Artemisia
+                    </p>
+                    <a href="https://linkedin.com/in/nome-cognome" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://via.placeholder.com/150" alt="Amir">
+                    </div>
+                    <h3 class="member-name">Amir</h3>
+                    <p class="member-role">CTO</p>
+                    <p class="member-description">
+                        Esperto di architetture di modelli di object detection
+                    </p>
+                    <a href="https://linkedin.com/in/nome-cognome" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
             </div>
         </div>
     </section>
