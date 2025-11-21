@@ -381,6 +381,29 @@
             animation: pulse 2s infinite;
         }
 
+        .feature-icon img, 
+        .upload-icon img, 
+        .step-icon img {
+            width: 50%;        /* Occupa metà della larghezza del cerchio */
+            height: auto;      /* Mantiene le proporzioni originali */
+            display: block;    /* Aiuta il posizionamento corretto */
+            object-fit: contain; /* Assicura che l'immagine sia intera */
+        }
+
+        .upload-icon img {
+            width: 100px;       /* Imposta una larghezza fissa ragionevole */
+            height: auto;       /* Mantiene le proporzioni */
+            display: block;     
+            margin: 0 auto;     /* La centra orizzontalmente */
+        }
+
+        .step-content-box h4 img {
+            width: 24px;            /* Dimensione piccola per stare accanto al testo */
+            height: auto;
+            vertical-align: middle; /* Allinea l'icona al centro del testo */
+            margin-right: 8px;      /* Spazio tra icona e testo */
+        }
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1083,19 +1106,24 @@
             <h2>I Vantaggi di NEST</h2>
             <p>Una soluzione completa pensata per le esigenze specifiche dei musei di storia naturale e non solo</p>
         </div>
-        <div class="feature-cards">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="icons/velocità.png" alt="Icona Velocità">
+                </div>
                 <h3>Velocità</h3>
                 <p>Digitalizza intere collezioni in una frazione del tempo tradizionale. Il nostro sistema AI-assistito accelera drasticamente il processo di catalogazione.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="icons/automazione.png" alt="Icona Velocità">
+                </div>
                 <h3>Automazione</h3>
                 <p>Riconoscimento automatico di oggetti e specie, lettura OCR delle etichette, standardizzazione dei metadati. L'AI lavora per te, tu mantieni il controllo.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <img src="icons/adattabilità.png" alt="Icona Velocità">
+                </div>
                 <h3>Adattabilità</h3>
                 <p>Personalizzazione completa per ogni tipo di collezione. Dal museo di storia naturale all'arte, ci adattiamo alle vostre esigenze specifiche.</p>
             </div>
@@ -1110,7 +1138,9 @@
         
         <!-- Initial common step -->
         <div class="common-upload-step">
-            <div class="upload-icon">📸</div>
+            <div class="upload-icon">
+                <img src="icons/caricamento_immagini.png" alt="Icona Caricamento">
+            </div>
             <h3>Caricamento Immagini</h3>
             <p>Carica le foto dei tuoi reperti: scatole con più oggetti o singoli campioni con cartellini</p>
         </div>
@@ -1138,7 +1168,10 @@
                     <div class="workflow-process-step step-visual-1">
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
-                            <h4>🔍 Riconoscimento Visivo</h4>
+                            <h4>
+                                <img src="icons/riconoscimento_visivo.png" class="title-icon" alt="Icona"> 
+                                Riconoscimento Visivo
+                            </h4>
                             <p>Identificazione automatica dei singoli individui nella foto, separazione dal background</p>
                         </div>
                         <div class="step-connector"></div>
@@ -1147,7 +1180,10 @@
                     <div class="workflow-process-step step-decode-1">
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
-                            <h4>🤖 Decodifica Intelligente</h4>
+                            <h4>
+                                <img src="icons/classificazione_automatica.png" class="title-icon" alt="Icona"> 
+                                Classificazione automatica
+                            </h4>
                             <p>Assegnazione di classi tassonomiche agli oggetti riconosciuti</p>
                         </div>
                         <div class="step-connector"></div>
@@ -1156,7 +1192,10 @@
                     <div class="workflow-process-step step-data-1">
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
-                            <h4>📊 Dati Standardizzati</h4>
+                            <h4>
+                                <img src="icons/dati_standardizzati.png" class="title-icon" alt="Icona"> 
+                                Dati standardizzati
+                            </h4>
                             <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
                         </div>
                     </div>
@@ -1175,7 +1214,10 @@
                     <div class="workflow-process-step step-visual-2">
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
-                            <h4>🔍 Riconoscimento Visivo</h4>
+                            <h4>
+                                <img src="icons/riconoscimento_visivo.png" class="title-icon" alt="Icona"> 
+                                Riconoscimento visivo
+                            </h4>
                             <p>Riconoscimento e isolamento dei cartellini dalla foto</p>
                         </div>
                         <div class="step-connector"></div>
@@ -1184,7 +1226,10 @@
                     <div class="workflow-process-step step-decode-2">
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
-                            <h4>🤖 Decodifica Intelligente</h4>
+                            <h4>
+                                <img src="icons/classificazione_automatica.png" class="title-icon" alt="Icona"> 
+                                Classificazione automatica
+                            </h4>
                             <p>OCR + LLM per estrazione e interpretazione del testo</p>
                         </div>
                         <div class="step-connector"></div>
@@ -1193,7 +1238,10 @@
                     <div class="workflow-process-step step-data-2">
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
-                            <h4>📊 Dati Standardizzati</h4>
+                            <h4>
+                                <img src="icons/dati_standardizzati.png" class="title-icon" alt="Icona"> 
+                                Dati standardizzati
+                            </h4>
                             <p>Dati validati in formato Darwin Core standard per musei</p>
                         </div>
                     </div>
