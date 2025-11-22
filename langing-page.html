@@ -119,7 +119,7 @@
         /* Hero Section */
         .hero {
             padding: 120px 5% 80px;
-            min-height: 90vh;
+            min-height: 80vh; /* Reduced height slightly as image is gone */
             display: flex;
             align-items: center;
             background: linear-gradient(135deg, var(--color-light) 0%, rgba(255, 255, 255, 0.8) 100%);
@@ -128,17 +128,18 @@
         }
 
         .hero-content {
-            max-width: 1400px;
+            max-width: 1000px; /* Reduced max-width for centered text focus */
             margin: 0 auto;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+            display: flex; /* Changed from grid to flex for single column */
+            flex-direction: column;
+            align-items: center; /* Center align items */
+            text-align: center; /* Center text */
+            gap: 40px;
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Slightly larger max size */
             line-height: 1.2;
             color: var(--color-dark);
             margin-bottom: 1.5rem;
@@ -161,12 +162,16 @@
             line-height: 1.8;
             color: #555;
             margin-bottom: 2.5rem;
+            max-width: 800px; /* Limit width for readability */
+            margin-left: auto;
+            margin-right: auto;
             animation: fadeInUp 0.8s 0.4s both;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
+            justify-content: center; /* Center the buttons */
             animation: fadeInUp 0.8s 0.6s both;
         }
 
@@ -185,28 +190,6 @@
         .secondary-button:hover {
             background: var(--color-primary);
             color: white;
-        }
-
-        /* Visual Animation */
-        .hero-visual {
-            position: relative;
-            /* Rimossa altezza fissa per adattarsi a due immagini */
-            display: flex;
-            flex-direction: column; /* Stack verticale */
-            gap: 20px; /* Spazio tra le due GIF */
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 1s 0.8s both;
-        }
-        
-        /* Stili aggiornati per gestire entrambi i GIF */
-        .hero-visual img {
-            width: 100%; /* Forza la larghezza per allinearle visivamente */
-            height: auto; /* Mantiene aspect ratio */
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            object-fit: contain;
-            display: block;
         }
 
         /* Features Section */
@@ -418,6 +401,23 @@
         .workflow-header {
             text-align: center;
             margin-bottom: 2rem;
+        }
+
+        /* NEW CSS FOR GIFS IN WORKFLOW */
+        .workflow-gif-container {
+            width: 100%;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: #fafafa;
+        }
+
+        .workflow-gif-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
         }
 
         .mids-badge {
@@ -932,12 +932,7 @@
             }
 
             .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-visual {
-                /* Non più altezza fissa, lascia che si adatti */
+                /* Removed grid specific override since main CSS is now flex */
             }
 
             .workflow-options {
@@ -1030,11 +1025,7 @@
                     <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
                     <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
             </div>
-            <div class="hero-visual">
-                <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale">
-                <img src="icons/labels.GIF" alt="Animazione Etichette">
             </div>
-        </div>
     </section>
 
     <section id="features" class="features">
@@ -1101,7 +1092,6 @@
                     <h3>Flusso 1: Riconoscimento Individui</h3>
                     <p class="workflow-subtitle">Digitalizzazione rapida di collezioni multiple</p>
                 </div>
-                
                 <div class="workflow-process-steps">
                     <div class="workflow-process-step step-visual-1">
                         <div class="step-number-circle">1</div>
@@ -1110,7 +1100,7 @@
                                 <img src="icons/riconoscimento_visivo.png" class="title-icon" alt="Icona"> 
                                 Riconoscimento Visivo
                             </h4>
-                            <p>Identificazione automatica dei singoli individui nella foto, separazione dal background</p>
+                            <p>Identificazione automatica dei singoli individui nella foto</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1137,6 +1127,9 @@
                             <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
                         </div>
                     </div>
+                    <div class="workflow-gif-container">
+                        <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale">
+                    </div>
                 </div>
             </div>
 
@@ -1145,8 +1138,7 @@
                     <div class="mids-badge mids-3">MIDS 3</div>
                     <h3>Flusso 2: Digitalizzazione Cartellini</h3>
                     <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
-                </div>
-                
+                </div>                
                 <div class="workflow-process-steps">
                     <div class="workflow-process-step step-visual-2">
                         <div class="step-number-circle">1</div>
@@ -1181,6 +1173,10 @@
                             </h4>
                             <p>Dati validati in formato Darwin Core standard per musei</p>
                         </div>
+                    </div>
+                    <p></p>
+                    <div class="workflow-gif-container">
+                        <img src="icons/labels.GIF" alt="Animazione Etichette">
                     </div>
                 </div>
             </div>
