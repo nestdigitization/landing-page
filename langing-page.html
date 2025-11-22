@@ -54,7 +54,7 @@
             font-size: 1.8rem;
             font-weight: 600;
             color: var(--color-primary);
-            text-decoration: none;
+            text-decoration: none;
         }
 
         .logo img {
@@ -190,26 +190,24 @@
         /* Visual Animation */
         .hero-visual {
             position: relative;
-            height: 500px;
+            /* Rimossa altezza fissa per adattarsi a due immagini */
             display: flex;
+            flex-direction: column; /* Stack verticale */
+            gap: 20px; /* Spazio tra le due GIF */
             align-items: center;
             justify-content: center;
             animation: fadeIn 1s 0.8s both;
         }
         
-        /* Stili per il nuovo GIF */
+        /* Stili aggiornati per gestire entrambi i GIF */
         .hero-visual img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%; /* Forza la larghezza per allinearle visivamente */
+            height: auto; /* Mantiene aspect ratio */
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             object-fit: contain;
+            display: block;
         }
-
-
-        /* Rimuovi tutto il CSS per la vecchia animazione di scansione
-        .scan-animation, .artifact-frame, .scan-line, .artifact-item, .detection-box, @keyframes scan, @keyframes appearItem, @keyframes detect sono stati rimossi */
-
 
         /* Features Section */
         .features {
@@ -939,7 +937,7 @@
             }
 
             .hero-visual {
-                height: 400px;
+                /* Non più altezza fissa, lascia che si adatti */
             }
 
             .workflow-options {
@@ -1033,7 +1031,8 @@
                     <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
             </div>
             <div class="hero-visual">
-                <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale" style="max-width: 100%; height: auto;">
+                <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale">
+                <img src="icons/labels.GIF" alt="Animazione Etichette">
             </div>
         </div>
     </section>
