@@ -191,110 +191,25 @@
         .hero-visual {
             position: relative;
             height: 500px;
-            animation: fadeIn 1s 0.8s both;
-        }
-
-        .scan-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: fadeIn 1s 0.8s both;
         }
-
-        .artifact-frame {
-            width: 300px;
-            height: 400px;
-            border: 3px solid var(--color-primary);
+        
+        /* Stili per il nuovo GIF */
+        .hero-visual img {
+            max-width: 100%;
+            max-height: 100%;
             border-radius: 15px;
-            position: relative;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
         }
 
-        .scan-line {
-            position: absolute;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-            animation: scan 3s infinite;
-        }
 
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
+        /* Rimuovi tutto il CSS per la vecchia animazione di scansione
+        .scan-animation, .artifact-frame, .scan-line, .artifact-item, .detection-box, @keyframes scan, @keyframes appearItem, @keyframes detect sono stati rimossi */
 
-        .artifact-item {
-            position: absolute;
-            opacity: 0;
-            animation: appearItem 3s infinite;
-        }
-
-        .artifact-item:nth-child(2) {
-            top: 20%;
-            left: 20%;
-            width: 60px;
-            height: 60px;
-            background: var(--color-secondary);
-            border-radius: 50%;
-        }
-
-        .artifact-item:nth-child(3) {
-            top: 50%;
-            left: 30%;
-            width: 100px;
-            height: 80px;
-            background: var(--color-accent);
-            border-radius: 10px;
-        }
-
-        .artifact-item:nth-child(4) {
-            bottom: 20%;
-            right: 25%;
-            width: 70px;
-            height: 70px;
-            background: var(--color-light);
-            transform: rotate(45deg);
-        }
-
-        @keyframes appearItem {
-            0%, 30% { opacity: 0; }
-            40%, 90% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .detection-box {
-            position: absolute;
-            border: 2px dashed var(--color-primary);
-            background: rgba(137, 159, 106, 0.1);
-            opacity: 0;
-            animation: detect 3s infinite;
-        }
-
-        .detection-box:nth-child(5) {
-            top: 18%;
-            left: 18%;
-            width: 64px;
-            height: 64px;
-            animation-delay: 1s;
-        }
-
-        .detection-box:nth-child(6) {
-            top: 48%;
-            left: 28%;
-            width: 104px;
-            height: 84px;
-            animation-delay: 1.5s;
-        }
-
-        @keyframes detect {
-            0%, 40% { opacity: 0; }
-            50%, 80% { opacity: 1; }
-            90%, 100% { opacity: 0; }
-        }
 
         /* Features Section */
         .features {
@@ -1056,7 +971,31 @@
             display: block;
             animation: fadeIn 0.3s;
         }
+        
+        /* Error Message for EmailJS */
+        .error-message {
+            display: none;
+            padding: 1rem;
+            background: #f44336;
+            color: white;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
     </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Inizializza EmailJS con la tua chiave pubblica
+            emailjs.init({
+                publicKey: "naafauub4EK_7kPXB",
+            });
+        })();
+    </script>
 </head>
 <body>
     <header>
@@ -1094,16 +1033,7 @@
                     <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
             </div>
             <div class="hero-visual">
-                <div class="scan-animation">
-                    <div class="artifact-frame">
-                        <div class="scan-line"></div>
-                        <div class="artifact-item"></div>
-                        <div class="artifact-item"></div>
-                        <div class="artifact-item"></div>
-                        <div class="detection-box"></div>
-                        <div class="detection-box"></div>
-                    </div>
-                </div>
+                <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale" style="max-width: 100%; height: auto;">
             </div>
         </div>
     </section>
@@ -1148,7 +1078,6 @@
             <p>Due percorsi di digitalizzazione intelligente per ogni esigenza del museo</p>
         </div>
         
-        <!-- Initial common step -->
         <div class="common-upload-step">
             <div class="upload-icon">
                 <img src="icons/caricamento_immagini.png" alt="Icona Caricamento">
@@ -1166,9 +1095,7 @@
             </div>
         </div>
 
-        <!-- Two parallel workflows -->
         <div class="dual-workflows">
-            <!-- Workflow 1: Riconoscimento individui -->
             <div class="workflow-path workflow-path-1">
                 <div class="workflow-header">
                     <div class="mids-badge mids-1">MIDS 1</div>
@@ -1214,7 +1141,6 @@
                 </div>
             </div>
 
-            <!-- Workflow 2: Copiatura cartellini -->
             <div class="workflow-path workflow-path-2">
                 <div class="workflow-header">
                     <div class="mids-badge mids-3">MIDS 3</div>
@@ -1324,12 +1250,15 @@
         <div class="newsletter-container">
             <h2>Unisciti alla Beta</h2>
             <p>Sii tra i primi a rivoluzionare la digitalizzazione del tuo museo. Ricevi aggiornamenti sul lancio e dettagli sul pricing.</p>
-            <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
-                <input type="email" placeholder="La tua email" required>
+            <form id="newsletterForm" class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" name="user_email" placeholder="La tua email" required>
                 <button type="submit">Richiedi Accesso</button>
             </form>
             <div class="success-message" id="successMessage">
                 Grazie per l'interesse! Ti contatteremo presto con maggiori dettagli.
+            </div>
+            <div class="error-message" id="errorMessage">
+                Si è verificato un errore durante l'invio. Riprova più tardi.
             </div>
         </div>
     </section>
@@ -1404,7 +1333,6 @@
             </div>
             
             <div class="team-grid">
-                <!-- Team Member 1 -->
                 <div class="team-member">
                     <div class="member-photo">
                         <img src="icons/Andrea Cerofolini.jpg" alt="Andrea Cerofolini">
@@ -1422,7 +1350,6 @@
                     </a>
                 </div>
 
-                <!-- Team Member 2 -->
                 <div class="team-member">
                 <div class="member-photo">
                     <img src="icons/Michele Bertoncini.jpg" alt="Michele Bertoncini">
@@ -1440,7 +1367,6 @@
                     </a>
                 </div>
 
-                <!-- Team Member 3 -->
                 <div class="team-member">
                     <div class="member-photo">
                         <img src="https://via.placeholder.com/150" alt="Andres Lazzari">
@@ -1458,7 +1384,6 @@
                     </a>
                 </div>
 
-                <!-- Team Member 4 -->
                 <div class="team-member">
                     <div class="member-photo">
                         <img src="https://via.placeholder.com/150" alt="Amir Eid">
@@ -1496,16 +1421,33 @@
             faqItem.classList.toggle('active');
         }
 
-        // Newsletter Form
+        // Newsletter Form - AGGIORNATA PER EMAILJS
         function handleNewsletterSubmit(event) {
             event.preventDefault();
+
+            const form = event.target;
             const successMessage = document.getElementById('successMessage');
-            successMessage.classList.add('show');
-            event.target.reset();
-            
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Nascondi entrambi i messaggi prima del nuovo tentativo
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            emailjs.sendForm('service_mmorfpp', 'template_ijphujc', form)
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    successMessage.classList.add('show');
+                    form.reset(); // Resetta il form in caso di successo
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                }, (error) => {
+                    console.log('FAILED...', error);
+                    errorMessage.classList.add('show');
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 5000);
+                });
         }
 
         // Smooth Scrolling
