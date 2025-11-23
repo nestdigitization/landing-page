@@ -1520,14 +1520,16 @@
         </div>
     </div>
 
-    <script>
-        // Cookie Consent Logic
+<script>
+        // === Cookie Consent Logic & Tracking ===
         function loadTrackingScript() {
+            // Script di Microsoft Clarity
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "uapk5afb76");
+            })(window, document, "clarity", "script", "uapk5afb76"); // ID Corretto inserito qui
+            
             console.log("Tracking attivato.");
         }
 
@@ -1536,10 +1538,12 @@
             const banner = document.getElementById('cookieConsentBanner');
 
             if (consent === 'true') {
+                // Se ha già accettato in passato, avvia subito il tracciamento
                 loadTrackingScript();
             } else if (consent === 'false') {
-                // Do nothing
+                // Se ha rifiutato, non fare nulla
             } else {
+                // Se non c'è scelta (prima visita), mostra il banner dopo 1 secondo
                 setTimeout(() => {
                     banner.style.display = 'block';
                 }, 1000);
@@ -1549,13 +1553,16 @@
         function acceptCookies() {
             localStorage.setItem('nest_cookie_consent', 'true');
             document.getElementById('cookieConsentBanner').style.display = 'none';
-            loadTrackingScript();
+            loadTrackingScript(); // Avvia il tracciamento ora
         }
 
         function rejectCookies() {
             localStorage.setItem('nest_cookie_consent', 'false');
             document.getElementById('cookieConsentBanner').style.display = 'none';
+            // Non avviare loadTrackingScript
         }
+
+        // === UI Interactions ===
 
         // Mobile Menu Toggle
         function toggleMobileMenu() {
@@ -1569,7 +1576,7 @@
             faqItem.classList.toggle('active');
         }
 
-        // Newsletter Form
+        // Newsletter Form con EmailJS
         function handleNewsletterSubmit(event) {
             event.preventDefault();
 
@@ -1585,9 +1592,12 @@
                     console.log('SUCCESS!', response.status, response.text);
                     successMessage.classList.add('show');
                     form.reset();
+                    
+                    // Traccia l'evento su Clarity se attivo (se l'utente ha accettato i cookie)
                     if (typeof clarity === 'function') {
                         clarity("event", "newsletter_signup");
                     }
+                    
                     setTimeout(() => {
                         successMessage.classList.remove('show');
                     }, 5000);
@@ -1610,6 +1620,7 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    // Chiude il menu mobile se aperto
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
@@ -1633,7 +1644,8 @@
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {uapk5afb76
+                if (entry.isIntersecting) {
+                    // ERRORE RIMOSSO QUI
                     entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.6s forwards';
                 }
             });
