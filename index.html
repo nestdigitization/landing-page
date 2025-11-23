@@ -61,7 +61,7 @@
             height: 50px;
             width: auto;
             margin-right: 10px;
-            object-fit: contain; 
+            object-fit: contain;
         }
 
         .nav-links {
@@ -119,7 +119,7 @@
         /* Hero Section */
         .hero {
             padding: 120px 5% 80px;
-            min-height: 80vh; /* Reduced height slightly as image is gone */
+            min-height: 80vh;
             display: flex;
             align-items: center;
             background: linear-gradient(135deg, var(--color-light) 0%, rgba(255, 255, 255, 0.8) 100%);
@@ -128,18 +128,18 @@
         }
 
         .hero-content {
-            max-width: 1000px; /* Reduced max-width for centered text focus */
+            max-width: 1000px;
             margin: 0 auto;
             width: 100%;
-            display: flex; /* Changed from grid to flex for single column */
+            display: flex;
             flex-direction: column;
-            align-items: center; /* Center align items */
-            text-align: center; /* Center text */
+            align-items: center;
+            text-align: center;
             gap: 40px;
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem); /* Slightly larger max size */
+            font-size: clamp(2.5rem, 5vw, 4rem);
             line-height: 1.2;
             color: var(--color-dark);
             margin-bottom: 1.5rem;
@@ -162,7 +162,7 @@
             line-height: 1.8;
             color: #555;
             margin-bottom: 2.5rem;
-            max-width: 800px; /* Limit width for readability */
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             animation: fadeInUp 0.8s 0.4s both;
@@ -171,7 +171,7 @@
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
-            justify-content: center; /* Center the buttons */
+            justify-content: center;
             animation: fadeInUp 0.8s 0.6s both;
         }
 
@@ -250,6 +250,13 @@
             font-size: 2rem;
         }
 
+        .feature-icon img {
+            width: 50%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
         .feature-card h3 {
             font-size: 1.4rem;
             color: var(--color-dark);
@@ -261,24 +268,22 @@
             line-height: 1.6;
         }
 
-        /* NEW SECTION: How It Works (Tech Process) - Dual Workflows */
+        /* How It Works Section */
         .how-it-works {
             padding: 80px 5%;
             background: var(--color-light);
         }
 
-        /* Common upload step */
         .common-upload-step {
             max-width: 600px;
-            margin: 0 auto 40px; /* Manteniamo lo spazio, ma lo riempiremo con la linea */
+            margin: 0 auto 40px;
             text-align: center;
             background: white;
             padding: 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
-            
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
             position: relative;
-            z-index: 10; /* Assicura che il box stia sopra la linea di connessione */
+            z-index: 10;
         }
 
         .upload-icon {
@@ -287,27 +292,11 @@
             animation: pulse 2s infinite;
         }
 
-        .feature-icon img, 
-        .upload-icon img, 
-        .step-icon img {
-            width: 50%;        /* Occupa metà della larghezza del cerchio */
-            height: auto;      /* Mantiene le proporzioni originali */
-            display: block;    /* Aiuta il posizionamento corretto */
-            object-fit: contain; /* Assicura che l'immagine sia intera */
-        }
-
         .upload-icon img {
-            width: 60px;       /* Imposta una larghezza fissa ragionevole */
-            height: auto;       /* Mantiene le proporzioni */
-            display: block;     
-            margin: 0 auto;     /* La centra orizzontalmente */
-        }
-
-        .step-content-box h4 img {
-            width: 24px;            /* Dimensione piccola per stare accanto al testo */
+            width: 60px;
             height: auto;
-            vertical-align: middle; /* Allinea l'icona al centro del testo */
-            margin-right: 8px;      /* Spazio tra icona e testo */
+            display: block;
+            margin: 0 auto;
         }
 
         @keyframes pulse {
@@ -326,73 +315,62 @@
             color: #666;
         }
 
+        /* Workflow Split Arrows */
         .workflow-split-arrows {
             position: relative;
-            height: 100px; 
-            max-width: 715px; 
+            height: 100px;
+            max-width: 715px;
             margin: 0 auto 20px;
             display: flex;
             justify-content: center;
         }
 
         .workflow-split-arrows::before {
-        content: '';
-        position: absolute;
-        /* Posizionamento: parte dall'alto e va verso l'alto */
-        top: -35px;
-        left: 50%;
-        transform: translateX(-50%);
-        
-        /* Dimensioni: Spessore uguale alle frecce (5px) e altezza sufficiente a toccare il box */
-        width: 10px; 
-        height: 40px; /* Abbastanza lungo da coprire il margin-bottom del box sopra */
-        
-        /* STILE: Gradiente verticale che anticipa i due colori */
-        /* Metà sinistra verde (#7ba85c), Metà destra marrone (#c48969) */
-        background: linear-gradient(to right, #7ba85c 50%, #c48969 50%);
-        
-        z-index: 1; /* Sta sotto il box di caricamento */
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 40px;
+            background: linear-gradient(to right, #7ba85c 50%, #c48969 50%);
+            z-index: 1;
         }
 
-        /* Container comune per i rami */
         .arrow-branch {
             position: relative;
             width: 50%;
             height: 100%;
         }
 
-        /* STILE RAMO SINISTRO (Verde) */
         .branch-left .line-curve {
             position: absolute;
             top: 0;
-            right: 0; /* Parte dal centro del container padre */
-            width: 100%; /* Si estende verso sinistra */
+            right: 0;
+            width: 100%;
             height: 100%;
-            /* Crea la curva: bordo superiore e sinistro con angolo arrotondato */
-            border-top: 5px solid #7ba85c; 
+            border-top: 5px solid #7ba85c;
             border-left: 5px solid #7ba85c;
-            border-top-left-radius: 30px; /* Arrotondamento morbido */
-            /* Nasconde la parte destra per non farla sembrare un box intero */
-            margin-right: 2px; /* Piccolo offset per centratura perfetta */
+            border-top-left-radius: 30px;
+            margin-right: 2px;
         }
 
         .branch-left .arrow-head {
             position: absolute;
             bottom: -5px;
-            left: -9px; /* Allineato col bordo sinistro (spessore 3px + metà freccia) */
-            width: 0; 
-            height: 0; 
+            left: -9px;
+            width: 0;
+            height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
             border-top: 15px solid #7ba85c;
         }
 
-        /* STILE RAMO DESTRO (Marrone) */
         .branch-right .line-curve {
             position: absolute;
             top: 0;
-            left: 0; /* Parte dal centro */
-            width: 100%; /* Si estende verso destra */
+            left: 0;
+            width: 100%;
             height: 100%;
             border-top: 5px solid #c48969;
             border-right: 5px solid #c48969;
@@ -404,102 +382,45 @@
             position: absolute;
             bottom: -5px;
             right: -9px;
-            width: 0; 
-            height: 0; 
+            width: 0;
+            height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
             border-top: 15px solid #c48969;
         }
 
-        /* MOBILE: Nascondi la biforcazione, mostra freccia dritta */
         .arrow-mobile {
-            display: none; /* Nascosto su desktop */
+            display: none;
         }
 
-        @media (max-width: 968px) {
-            .workflow-split-arrows {
-                height: 60px; /* Meno spazio su mobile */
-                margin-bottom: 20px;
-            }
-
-            /* Nascondi i rami curvi complessi */
-            .arrow-branch {
-                display: none;
-            }
-
-            /* Mostra freccia semplice centrale */
-            .arrow-mobile {
-                display: block;
-                width: 2px;
-                height: 100%;
-                background: #ccc; /* Colore neutro o gradiente */
-                position: relative;
-            }
-
-            .arrow-mobile .arrow-head {
-                position: absolute;
-                bottom: 0;
-                left: -5px;
-                width: 0; 
-                height: 0; 
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-top: 8px solid #ccc;
-            }
-        }
-
-        /* Dual workflows container */
+        /* Dual Workflows */
         .dual-workflows {
             display: flex;
-            justify-content: center; /* Centra tutto il blocco nella pagina */
-            align-items: stretch;    /* Fa sì che le card abbiano la stessa altezza */
-            gap: 40px;               /* Spazio centrale fisso tra le due colonne */
-            max-width: 2000px;       /* Larghezza massima totale */
-            margin: 0 auto;          /* Centra il container stesso */
+            justify-content: center;
+            align-items: stretch;
+            gap: 40px;
+            max-width: 2000px;
+            margin: 0 auto;
             width: 100%;
         }
 
-        /* Workflow path cards */
         .workflow-path {
-            flex: 1;          /* MAGIA: Forza entrambi a occupare lo stesso spazio (50%) */
-            width: 0;         /* Trucco tecnico: impedisce al contenuto interno di forzare la larghezza */
-            min-width: 0;     /* Assicura che il flex funzioni correttamente */
-            
-            /* Stili estetici (presumibilmente già presenti, mantienili) */
+            flex: 1;
+            width: 0;
+            min-width: 0;
             background: #fff;
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             border: 1px solid #eee;
-            
-            /* Assicura che il contenuto sia centrato internamente se lo desideri */
             display: flex;
             flex-direction: column;
-        }
-
-        /* Assicurati che le immagini/gif non sbordino */
-        .workflow-path img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Gestione Mobile */
-        @media (max-width: 968px) {
-            .dual-workflows {
-                flex-direction: column; /* Impila le card una sopra l'altra */
-                gap: 30px;
-                padding: 0 20px;
-            }
-            
-            .workflow-path {
-                width: 100%; /* Su mobile occupano tutto lo spazio */
-                flex: auto;
-            }
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .workflow-path:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
         }
 
         .workflow-path-1 {
@@ -510,19 +431,17 @@
             border-top: 5px solid #c48969;
         }
 
-        /* Workflow headers */
         .workflow-header {
             text-align: center;
             margin-bottom: 2rem;
         }
 
-        /* NEW CSS FOR GIFS IN WORKFLOW */
         .workflow-gif-container {
             width: 100%;
             margin-bottom: 2rem;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             background: #fafafa;
         }
 
@@ -565,7 +484,6 @@
             font-style: italic;
         }
 
-        /* Workflow process steps */
         .workflow-process-steps {
             display: flex;
             flex-direction: column;
@@ -655,6 +573,13 @@
             margin-bottom: 0.6rem;
         }
 
+        .step-content-box h4 img {
+            width: 24px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
         .step-content-box p {
             font-size: 0.95rem;
             color: #555;
@@ -674,28 +599,10 @@
             display: none;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 968px) {
-            .dual-workflows {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .workflow-split-arrows {
-                gap: 100px;
-            }
-
-            .arrow-line {
-                height: 60px;
-            }
-
-        }
-
-
-        /* RENAMED SECTION: Services (ex Workflow) */
+        /* Services Section */
         .services {
             padding: 80px 5%;
-            background: white; /* Alternanza colore */
+            background: white;
         }
 
         .workflow-container {
@@ -711,7 +618,7 @@
         }
 
         .workflow-card {
-            background: white; /* Se la sezione è bianca, la card potrebbe avere un bordo o background leggerissimo */
+            background: white;
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
@@ -819,7 +726,7 @@
         /* FAQ Section */
         .faq {
             padding: 80px 5%;
-            background: var(--color-light); /* Alternanza */
+            background: var(--color-light);
         }
 
         .faq-container {
@@ -878,123 +785,97 @@
             transform: rotate(45deg);
         }
 
-    /* Contact Section */
-    .contact {
-        padding: 80px 5%;
-        background: white;
-    }
-
-    .contact-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .team-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        margin-top: 3rem;
-    }
-
-    .team-member {
-        background: white;
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .team-member:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
-    }
-
-    .member-photo {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin: 0 auto 1.5rem;
-        overflow: hidden;
-        border: 4px solid var(--color-light);
-        background: var(--color-light);
-    }
-
-    .member-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .member-name {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: var(--color-dark);
-        margin-bottom: 0.5rem;
-    }
-
-    .member-role {
-        font-size: 1rem;
-        color: var(--color-primary);
-        font-weight: 500;
-        margin-bottom: 0.8rem;
-    }
-
-    .member-description {
-        font-size: 0.95rem;
-        color: #666;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-    }
-
-    .linkedin-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0.7rem 1.5rem;
-        background: #0077b5;
-        color: white;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s;
-    }
-
-    .linkedin-button:hover {
-        background: #006399;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3);
-    }
-
-    .linkedin-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    @media (max-width: 768px) {
-        .team-grid {
-            grid-template-columns: 1fr;
-            gap: 25px;
+        /* Contact Section */
+        .contact {
+            padding: 80px 5%;
+            background: white;
         }
-    }
 
-        .linkedin-link {
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 4px solid var(--color-light);
+            background: var(--color-light);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .member-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .linkedin-button {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 1rem 2rem;
-            background: white;
-            border-radius: 10px;
+            gap: 8px;
+            padding: 0.7rem 1.5rem;
+            background: #0077b5;
+            color: white;
+            border-radius: 25px;
             text-decoration: none;
-            color: var(--color-dark);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            font-weight: 500;
             transition: all 0.3s;
-            border: 1px solid #eee;
         }
 
-        .linkedin-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        .linkedin-button:hover {
+            background: #006399;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3);
+        }
+
+        .linkedin-icon {
+            width: 18px;
+            height: 18px;
         }
 
         /* Footer */
@@ -1003,6 +884,98 @@
             background: var(--color-dark);
             color: white;
             text-align: center;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: rgba(44, 44, 44, 0.95);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            display: none;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .cookie-banner h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .cookie-banner p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+            line-height: 1.4;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn-accept {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--color-secondary);
+        }
+
+        .cookie-btn-reject {
+            background: transparent;
+            color: #bbb;
+            border: 1px solid #666;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-reject:hover {
+            color: white;
+            border-color: white;
+        }
+
+        /* Messages */
+        .success-message, .error-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+        }
+
+        .error-message {
+            background: #f44336;
+            color: white;
+        }
+
+        .success-message.show, .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s;
         }
 
         /* Animations */
@@ -1022,7 +995,59 @@
             to { opacity: 1; }
         }
 
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .workflow-split-arrows {
+                height: 60px;
+                margin-bottom: 20px;
+            }
+
+            .arrow-branch {
+                display: none;
+            }
+
+            .arrow-mobile {
+                display: block;
+                width: 2px;
+                height: 100%;
+                background: #ccc;
+                position: relative;
+            }
+
+            .arrow-mobile .arrow-head {
+                position: absolute;
+                bottom: 0;
+                left: -5px;
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid #ccc;
+            }
+
+            .dual-workflows {
+                flex-direction: column;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .workflow-path {
+                width: 100%;
+                flex: auto;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -1044,10 +1069,6 @@
                 display: flex;
             }
 
-            .hero-content {
-                /* Removed grid specific override since main CSS is now flex */
-            }
-
             .workflow-options {
                 grid-template-columns: 1fr;
             }
@@ -1057,46 +1078,23 @@
                 align-items: center;
             }
 
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
             }
-        }
 
-        /* Success Message */
-        .success-message {
-            display: none;
-            padding: 1rem;
-            background: #4caf50;
-            color: white;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-        
-        /* Error Message for EmailJS */
-        .error-message {
-            display: none;
-            padding: 1rem;
-            background: #f44336;
-            color: white;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-
-        .error-message.show {
-            display: block;
-            animation: fadeIn 0.3s;
+            .cookie-banner {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 100%;
+                border-radius: 12px 12px 0 0;
+            }
         }
     </style>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // Inizializza EmailJS con la tua chiave pubblica
             emailjs.init({
                 publicKey: "naafauub4EK_7kPXB",
             });
@@ -1107,12 +1105,14 @@
     <header>
         <nav>
             <a href="#" class="logo">
-                <img src="icons/logo.png"  alt="Logo NEST">
+                <img src="icons/logo.png" alt="Logo NEST">
                 <span>NEST</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#features">Vantaggi</a></li>
-                <li><a href="#how-it-works">Come Funziona</a></li> <li><a href="#services">Servizi</a></li> <li><a href="#faq">FAQ</a></li>
+                <li><a href="#how-it-works">Come Funziona</a></li>
+                <li><a href="#services">Servizi</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contact">Contatti</a></li>
                 <li><a href="#newsletter" class="cta-button">Resta Aggiornato</a></li>
             </ul>
@@ -1136,9 +1136,10 @@
                 </p>
                 <div class="hero-buttons">
                     <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
-                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a> </div>
+                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a>
+                </div>
             </div>
-            </div>
+        </div>
     </section>
 
     <section id="features" class="features">
@@ -1146,34 +1147,24 @@
             <h2>I Vantaggi di NEST</h2>
             <p>Una soluzione completa pensata per le esigenze specifiche dei musei di storia naturale e non solo</p>
         </div>
-
         <div class="feature-cards">
-            
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="icons/velocità.png" alt="Icona Velocità">
-                </div>
+                <div class="feature-icon"><img src="icons/velocità.png" alt="Icona Velocità"></div>
                 <h3>Velocità</h3>
                 <p>Digitalizza intere collezioni in una frazione del tempo tradizionale. Il nostro sistema AI-assistito accelera drasticamente il processo di catalogazione.</p>
             </div>
-
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="icons/automazione.png" alt="Icona Velocità">
-                </div>
+                <div class="feature-icon"><img src="icons/automazione.png" alt="Icona Automazione"></div>
                 <h3>Automazione</h3>
                 <p>Riconoscimento automatico di oggetti e specie, lettura OCR delle etichette, standardizzazione dei metadati. L'AI lavora per te, tu mantieni il controllo.</p>
             </div>
-
             <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="icons/adattabilità.png" alt="Icona Velocità">
-                </div>
+                <div class="feature-icon"><img src="icons/adattabilità.png" alt="Icona Adattabilità"></div>
                 <h3>Adattabilità</h3>
                 <p>Personalizzazione completa per ogni tipo di collezione. Da una piccola collezione ad una collezione enorme, ci adattiamo alle vostre esigenze specifiche.</p>
             </div>
-
-        </div> </section>
+        </div>
+    </section>
 
     <section id="how-it-works" class="how-it-works">
         <div class="section-header">
@@ -1194,12 +1185,10 @@
                 <div class="line-curve"></div>
                 <div class="arrow-head"></div>
             </div>
-            
             <div class="arrow-branch branch-right">
                 <div class="line-curve"></div>
                 <div class="arrow-head"></div>
             </div>
-
             <div class="arrow-mobile">
                 <div class="arrow-head"></div>
             </div>
@@ -1217,39 +1206,37 @@
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/riconoscimento_visivo.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
                                 Riconoscimento Visivo
                             </h4>
                             <p>Identificazione automatica dei singoli individui nella foto</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
-                    
                     <div class="workflow-process-step step-decode-1">
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/classificazione_automatica.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
                                 Classificazione automatica
                             </h4>
                             <p>Assegnazione di classi tassonomiche agli oggetti riconosciuti</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
-                    
                     <div class="workflow-process-step step-data-1">
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/dati_standardizzati.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
                                 Dati standardizzati
                             </h4>
                             <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
                         </div>
                     </div>
-                    <div class="workflow-gif-container">
-                        <img src="icons/detection.gif" alt="Animazione di Rilevamento Orizzontale">
-                    </div>
+                </div>
+                <div class="workflow-gif-container">
+                    <img src="icons/detection.gif" alt="Animazione di Rilevamento">
                 </div>
             </div>
 
@@ -1258,46 +1245,43 @@
                     <div class="mids-badge mids-3">MIDS 3</div>
                     <h3>Flusso 2: Digitalizzazione Cartellini</h3>
                     <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
-                </div>                
+                </div>
                 <div class="workflow-process-steps">
                     <div class="workflow-process-step step-visual-2">
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/riconoscimento_visivo.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
                                 Riconoscimento visivo
                             </h4>
                             <p>Riconoscimento e isolamento dei cartellini dalla foto</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
-                    
                     <div class="workflow-process-step step-decode-2">
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/classificazione_automatica.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
                                 Classificazione automatica
                             </h4>
                             <p>OCR + LLM per estrazione e interpretazione del testo</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
-                    
                     <div class="workflow-process-step step-data-2">
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/dati_standardizzati.png" class="title-icon" alt="Icona"> 
+                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
                                 Dati standardizzati
                             </h4>
                             <p>Dati validati in formato Darwin Core standard per musei</p>
                         </div>
                     </div>
-                    <p></p>
-                    <div class="workflow-gif-container">
-                        <img src="icons/labels.GIF" alt="Animazione Etichette">
-                    </div>
+                </div>
+                <div class="workflow-gif-container">
+                    <img src="icons/labels.GIF" alt="Animazione Etichette">
                 </div>
             </div>
         </div>
@@ -1306,7 +1290,8 @@
     <section id="services" class="services">
         <div class="workflow-container">
             <div class="section-header">
-                <h2>Modalità di Servizio</h2> <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
+                <h2>Modalità di Servizio</h2>
+                <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
             </div>
             <div class="workflow-options">
                 <div class="workflow-card">
@@ -1466,9 +1451,9 @@
                 </div>
 
                 <div class="team-member">
-                <div class="member-photo">
-                    <img src="icons/michele-bertoncini.jpg" alt="Michele Bertoncini">
-                </div>
+                    <div class="member-photo">
+                        <img src="icons/michele-bertoncini.jpg" alt="Michele Bertoncini">
+                    </div>
                     <h3 class="member-name">Michele Bertoncini</h3>
                     <p class="member-role">Co-Founder</p>
                     <p class="member-description">
@@ -1523,7 +1508,55 @@
         <p>&copy; 2025 NEST. Tutti i diritti riservati. | Rendiamo ogni museo un patrimonio accessibile al mondo</p>
     </footer>
 
+    <div id="cookieConsentBanner" class="cookie-banner">
+        <h4>Utilizziamo i cookie per migliorare NEST</h4>
+        <p>
+            Utilizziamo cookie tecnici e di analisi per capire come interagisci con il sito e migliorarlo (es. mappe di calore anonime). 
+            Rispettiamo la tua privacy: i dati sono anonimizzati.
+        </p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta Tutto</button>
+            <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta</button>
+        </div>
+    </div>
+
     <script>
+        // Cookie Consent Logic
+        function loadTrackingScript() {
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "uapk5afb76");
+            console.log("Tracking attivato.");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const consent = localStorage.getItem('nest_cookie_consent');
+            const banner = document.getElementById('cookieConsentBanner');
+
+            if (consent === 'true') {
+                loadTrackingScript();
+            } else if (consent === 'false') {
+                // Do nothing
+            } else {
+                setTimeout(() => {
+                    banner.style.display = 'block';
+                }, 1000);
+            }
+        });
+
+        function acceptCookies() {
+            localStorage.setItem('nest_cookie_consent', 'true');
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+            loadTrackingScript();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('nest_cookie_consent', 'false');
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+        }
+
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -1536,7 +1569,7 @@
             faqItem.classList.toggle('active');
         }
 
-        // Newsletter Form - AGGIORNATA PER EMAILJS
+        // Newsletter Form
         function handleNewsletterSubmit(event) {
             event.preventDefault();
 
@@ -1544,7 +1577,6 @@
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
 
-            // Nascondi entrambi i messaggi prima del nuovo tentativo
             successMessage.classList.remove('show');
             errorMessage.classList.remove('show');
 
@@ -1552,7 +1584,10 @@
                 .then((response) => {
                     console.log('SUCCESS!', response.status, response.text);
                     successMessage.classList.add('show');
-                    form.reset(); // Resetta il form in caso di successo
+                    form.reset();
+                    if (typeof clarity === 'function') {
+                        clarity("event", "newsletter_signup");
+                    }
                     setTimeout(() => {
                         successMessage.classList.remove('show');
                     }, 5000);
@@ -1575,13 +1610,12 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
         });
 
-        // Add scroll effect to header
+        // Header shadow on scroll
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
@@ -1599,18 +1633,16 @@
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting) {uapk5afb76
                     entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.6s forwards';
                 }
             });
         }, observerOptions);
 
-        // Observe feature cards and process steps
         const animatedElements = document.querySelectorAll('.feature-card, .process-step, .workflow-card');
         animatedElements.forEach((el, index) => {
             el.style.opacity = '0';
-            // Aggiunge un leggero delay progressivo per gli elementi nello stesso contenitore
-            let delay = (index % 3) * 0.1; 
+            let delay = (index % 3) * 0.1;
             el.dataset.animation = `fadeInUp 0.6s ${delay}s forwards`;
             observer.observe(el);
         });
