@@ -270,12 +270,15 @@
         /* Common upload step */
         .common-upload-step {
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 40px; /* Manteniamo lo spazio, ma lo riempiremo con la linea */
             text-align: center;
             background: white;
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            
+            position: relative;
+            z-index: 10; /* Assicura che il box stia sopra la linea di connessione */
         }
 
         .upload-icon {
@@ -323,65 +326,175 @@
             color: #666;
         }
 
-        /* Workflow split arrows */
         .workflow-split-arrows {
+            position: relative;
+            height: 100px; 
+            max-width: 715px; 
+            margin: 0 auto 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 200px;
-            margin: 50px auto 60px;
-            max-width: 1000px;
+        }
+
+        .workflow-split-arrows::before {
+        content: '';
+        position: absolute;
+        /* Posizionamento: parte dall'alto e va verso l'alto */
+        top: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        /* Dimensioni: Spessore uguale alle frecce (5px) e altezza sufficiente a toccare il box */
+        width: 10px; 
+        height: 40px; /* Abbastanza lungo da coprire il margin-bottom del box sopra */
+        
+        /* STILE: Gradiente verticale che anticipa i due colori */
+        /* Metà sinistra verde (#7ba85c), Metà destra marrone (#c48969) */
+        background: linear-gradient(to right, #7ba85c 50%, #c48969 50%);
+        
+        z-index: 1; /* Sta sotto il box di caricamento */
+        }
+
+        /* Container comune per i rami */
+        .arrow-branch {
             position: relative;
+            width: 50%;
+            height: 100%;
         }
 
-        .arrow-left,
-        .arrow-right {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+        /* STILE RAMO SINISTRO (Verde) */
+        .branch-left .line-curve {
+            position: absolute;
+            top: 0;
+            right: 0; /* Parte dal centro del container padre */
+            width: 100%; /* Si estende verso sinistra */
+            height: 100%;
+            /* Crea la curva: bordo superiore e sinistro con angolo arrotondato */
+            border-top: 5px solid #7ba85c; 
+            border-left: 5px solid #7ba85c;
+            border-top-left-radius: 30px; /* Arrotondamento morbido */
+            /* Nasconde la parte destra per non farla sembrare un box intero */
+            margin-right: 2px; /* Piccolo offset per centratura perfetta */
         }
 
-        .arrow-line {
-            width: 2px;
-            height: 80px;
-            background: linear-gradient(to bottom, var(--color-primary), transparent);
+        .branch-left .arrow-head {
+            position: absolute;
+            bottom: -5px;
+            left: -9px; /* Allineato col bordo sinistro (spessore 3px + metà freccia) */
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #7ba85c;
         }
 
-        .arrow-line {
-            background: linear-gradient(to bottom, #7ba85c, #7ba85c);
+        /* STILE RAMO DESTRO (Marrone) */
+        .branch-right .line-curve {
+            position: absolute;
+            top: 0;
+            left: 0; /* Parte dal centro */
+            width: 100%; /* Si estende verso destra */
+            height: 100%;
+            border-top: 5px solid #c48969;
+            border-right: 5px solid #c48969;
+            border-top-right-radius: 30px;
+            margin-left: 2px;
         }
 
-        .arrow-line {
-            background: linear-gradient(to bottom, #c48969, #c48969);
+        .branch-right .arrow-head {
+            position: absolute;
+            bottom: -5px;
+            right: -9px;
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #c48969;
         }
 
-
-        .arrow-left{
-            color: #7ba85c;
+        /* MOBILE: Nascondi la biforcazione, mostra freccia dritta */
+        .arrow-mobile {
+            display: none; /* Nascosto su desktop */
         }
 
-        .arrow-right{
-            color: #c48969;
+        @media (max-width: 968px) {
+            .workflow-split-arrows {
+                height: 60px; /* Meno spazio su mobile */
+                margin-bottom: 20px;
+            }
+
+            /* Nascondi i rami curvi complessi */
+            .arrow-branch {
+                display: none;
+            }
+
+            /* Mostra freccia semplice centrale */
+            .arrow-mobile {
+                display: block;
+                width: 2px;
+                height: 100%;
+                background: #ccc; /* Colore neutro o gradiente */
+                position: relative;
+            }
+
+            .arrow-mobile .arrow-head {
+                position: absolute;
+                bottom: 0;
+                left: -5px;
+                width: 0; 
+                height: 0; 
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid #ccc;
+            }
         }
 
         /* Dual workflows container */
         .dual-workflows {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            margin-bottom: 50px;
+            display: flex;
+            justify-content: center; /* Centra tutto il blocco nella pagina */
+            align-items: stretch;    /* Fa sì che le card abbiano la stessa altezza */
+            gap: 40px;               /* Spazio centrale fisso tra le due colonne */
+            max-width: 2000px;       /* Larghezza massima totale */
+            margin: 0 auto;          /* Centra il container stesso */
+            width: 100%;
         }
 
         /* Workflow path cards */
         .workflow-path {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            flex: 1;          /* MAGIA: Forza entrambi a occupare lo stesso spazio (50%) */
+            width: 0;         /* Trucco tecnico: impedisce al contenuto interno di forzare la larghezza */
+            min-width: 0;     /* Assicura che il flex funzioni correttamente */
+            
+            /* Stili estetici (presumibilmente già presenti, mantienili) */
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            
+            /* Assicura che il contenuto sia centrato internamente se lo desideri */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Assicurati che le immagini/gif non sbordino */
+        .workflow-path img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Gestione Mobile */
+        @media (max-width: 968px) {
+            .dual-workflows {
+                flex-direction: column; /* Impila le card una sopra l'altra */
+                gap: 30px;
+                padding: 0 20px;
+            }
+            
+            .workflow-path {
+                width: 100%; /* Su mobile occupano tutto lo spazio */
+                flex: auto;
+            }
         }
 
         .workflow-path:hover {
@@ -1077,11 +1190,18 @@
         </div>
 
         <div class="workflow-split-arrows">
-            <div class="arrow-left">
-                <div class="arrow-line"></div>
+            <div class="arrow-branch branch-left">
+                <div class="line-curve"></div>
+                <div class="arrow-head"></div>
             </div>
-            <div class="arrow-right">
-                <div class="arrow-line"></div>
+            
+            <div class="arrow-branch branch-right">
+                <div class="line-curve"></div>
+                <div class="arrow-head"></div>
+            </div>
+
+            <div class="arrow-mobile">
+                <div class="arrow-head"></div>
             </div>
         </div>
 
