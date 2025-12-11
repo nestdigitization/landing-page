@@ -28,6 +28,92 @@
             overflow-x: hidden;
         }
 
+        /* --- STILE TOOLTIP AGGIUNTO --- */
+        .tooltip-term {
+            position: relative;
+            cursor: help;
+            text-decoration: underline dotted var(--color-primary);
+            text-underline-offset: 3px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .tooltip-term:hover {
+            color: var(--color-secondary);
+        }
+
+        .tooltip-box {
+            visibility: hidden;
+            width: 260px;
+            background-color: var(--color-dark);
+            color: #fff;
+            text-align: left;
+            border-radius: 8px;
+            padding: 12px 15px;
+            position: absolute;
+            z-index: 1001;
+            bottom: 135%; /* Posizionato sopra */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.85rem;
+            font-weight: 400;
+            line-height: 1.5;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+
+        .tooltip-box strong {
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .tooltip-box em {
+            display: block;
+            margin-top: 6px;
+            font-style: italic;
+            color: #ccc;
+            font-size: 0.8rem;
+            border-top: 1px solid #444;
+            padding-top: 6px;
+        }
+
+        .tooltip-box::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: var(--color-dark) transparent transparent transparent;
+        }
+
+        .tooltip-term:hover .tooltip-box {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Gestione Tooltip Mobile */
+        @media (max-width: 768px) {
+            .tooltip-box {
+                width: 220px;
+                left: 0;
+                transform: translateX(-20px);
+                bottom: 140%;
+            }
+            .tooltip-term:hover .tooltip-box {
+                transform: translateX(-20px) translateY(-5px);
+            }
+            .tooltip-box::after {
+                left: 40px; 
+            }
+        }
+        /* --- FINE STILE TOOLTIP --- */
+
         /* Header */
         header {
             position: fixed;
@@ -1198,7 +1284,15 @@
         <div class="dual-workflows">
             <div class="workflow-path workflow-path-1">
                 <div class="workflow-header">
-                    <div class="mids-badge mids-1">MIDS 1</div>
+                    <div class="mids-badge mids-1">
+                        <span class="tooltip-term">MIDS 1
+                            <span class="tooltip-box">
+                                <strong>MIDS 1 (Basic Record)</strong>
+                                Livello base di digitalizzazione: catalogo sommario con numero inventario e presenza fisica confermata.
+                                <em>Per Musei d'Arte: Inventario di base / Checklist inventariale.</em>
+                            </span>
+                        </span>
+                    </div>
                     <h3>Flusso 1: Riconoscimento Individui</h3>
                     <p class="workflow-subtitle">Digitalizzazione rapida di collezioni multiple</p>
                 </div>
@@ -1221,7 +1315,13 @@
                                 <img src="icons/classificazione_automatica.png" alt="Icona"> 
                                 Classificazione automatica
                             </h4>
-                            <p>Assegnazione di classi tassonomiche agli oggetti riconosciuti</p>
+                            <p>Assegnazione di <span class="tooltip-term">classi tassonomiche
+                                <span class="tooltip-box">
+                                    <strong>Classi Tassonomiche</strong>
+                                    Gerarchia di classificazione biologica (Regno, Phylum, Classe, Ordine).
+                                    <em>Per Musei d'Arte: Categorie stilistiche, Periodo storico, Scuola artistica.</em>
+                                </span>
+                            </span> agli oggetti riconosciuti</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1232,7 +1332,13 @@
                                 <img src="icons/dati_standardizzati.png" alt="Icona"> 
                                 Dati standardizzati
                             </h4>
-                            <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
+                            <p>Codici individuo, dati di specie e <span class="tooltip-term">tipo nomenclaturale
+                                <span class="tooltip-box">
+                                    <strong>Tipo Nomenclaturale</strong>
+                                    L'esemplare fisico specifico su cui è basata la descrizione scientifica di una specie.
+                                    <em>Per Musei d'Arte: L'Originale, il Capolavoro autentico o l'Opera di riferimento (vs. copie o bottega).</em>
+                                </span>
+                            </span></p>
                         </div>
                     </div>
                 </div>
@@ -1243,7 +1349,15 @@
 
             <div class="workflow-path workflow-path-2">
                 <div class="workflow-header">
-                    <div class="mids-badge mids-3">MIDS 3</div>
+                    <div class="mids-badge mids-3">
+                        <span class="tooltip-term">MIDS 3
+                            <span class="tooltip-box">
+                                <strong>MIDS 3 (Extended)</strong>
+                                Digitalizzazione avanzata: include media di qualità, dati estesi, georeferenziazione e collegamenti.
+                                <em>Per Musei d'Arte: Scheda di catalogo completa (OA/RA) con provenienza, mostre e bibliografia.</em>
+                            </span>
+                        </span>
+                    </div>
                     <h3>Flusso 2: Digitalizzazione Cartellini</h3>
                     <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
                 </div>
@@ -1266,7 +1380,13 @@
                                 <img src="icons/classificazione_automatica.png" alt="Icona"> 
                                 Classificazione automatica
                             </h4>
-                            <p>OCR + LLM per estrazione e interpretazione del testo</p>
+                            <p>OCR + <span class="tooltip-term">LLM
+                                <span class="tooltip-box">
+                                    <strong>Large Language Model</strong>
+                                    Intelligenza Artificiale avanzata capace di comprendere e generare testo umano.
+                                    <em>Per Musei d'Arte: Utile per trascrivere calligrafie antiche in lettere, diari d'artista o annotazioni d'archivio.</em>
+                                </span>
+                            </span> per estrazione e interpretazione del testo</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1277,7 +1397,13 @@
                                 <img src="icons/dati_standardizzati.png" alt="Icona"> 
                                 Dati standardizzati
                             </h4>
-                            <p>Dati validati in formato Darwin Core standard per musei</p>
+                            <p>Dati validati in formato <span class="tooltip-term">Darwin Core
+                                <span class="tooltip-box">
+                                    <strong>Darwin Core (DwC)</strong>
+                                    Standard internazionale per la condivisione di dati sulla biodiversità.
+                                    <em>Per Musei d'Arte: Standard descrittivi come LIDO (Lightweight Information Describing Objects) o CDWA.</em>
+                                </span>
+                            </span> standard per musei</p>
                         </div>
                     </div>
                 </div>
@@ -1402,7 +1528,13 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. Darwin Core). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
+                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. <span class="tooltip-term">Darwin Core
+                        <span class="tooltip-box">
+                            <strong>Darwin Core (DwC)</strong>
+                            Standard internazionale per la condivisione di dati sulla biodiversità.
+                            <em>Per Musei d'Arte: Standard descrittivi come LIDO o CDWA.</em>
+                        </span>
+                    </span>). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -1491,7 +1623,7 @@
                     <h3 class="member-name">Amir Eid</h3>
                     <p class="member-role">CTO</p>
                     <p class="member-description">
-                        Full stack developer
+                        Sviluppatore full-stack
                     </p>
                     <a href="https://www.linkedin.com/in/amireid/" class="linkedin-button" target="_blank">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
