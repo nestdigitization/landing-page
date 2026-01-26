@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEST | Intelligent Museum Digitization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #080809;
+            --bg-panel: #0f0f11;
+            --bg-card: #151518;
+            --accent-cyan: #00e5b8;
+            --accent-amber: #ffb020;
+            --accent-violet: #a78bfa;
+            --accent-rose: #fb7185;
+            --accent-blue: #60a5fa;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #52525b;
+            --border-subtle: rgba(255,255,255,0.08);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Instrument Sans', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        
+        h1, h2, h3 { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-weight: 600; 
+            letter-spacing: -0.025em; 
+        }
+        
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(8,8,9,0.98) 0%, rgba(8,8,9,0.9) 50%, transparent 100%);
+            backdrop-filter: blur(12px);
+        }
+        
+        .logo { display: flex; align-items: center; gap: 0.75rem; }
+
+        .logo-icon {
+            width: 42px; height: 42px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 600;
+        }
+        
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--text-primary); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 1200px; height: 1200px;
+            background: radial-gradient(ellipse at center, rgba(0,229,184,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-badge {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.625rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            font-size: 0.8rem; 
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-badge::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .hero h1 {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin-bottom: 3rem;
+        }
+        
+        .cta-group { display: flex; gap: 1rem; }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 0.95rem; 
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer; 
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: var(--bg-dark);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 0 60px rgba(0,229,184,0.5);
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            gap: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .scroll-indicator svg { 
+            animation: float 2.5s ease-in-out infinite; 
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Main Pipeline Container */
+        .pipeline-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Fixed Image Area - Left Side */
+        .image-viewport {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 55%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: var(--bg-dark);
+        }
+
+        .image-stage {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            aspect-ratio: 4/3;
+            border-radius: 20px;
+            overflow: visible;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .base-image {
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .base-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.8s ease;
+        }
+
+        /* Overlay images with spotlight effect */
+        .specimen-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .specimen-overlay img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease, filter 1.2s ease;
+            filter: drop-shadow(0 0 0px transparent);
+        }
+
+        .specimen-overlay img.active {
+            opacity: 1;
+        }
+
+        /* Spotlight glow effect - appears slowly and stays */
+        .specimen-overlay img.spotlight {
+            filter: 
+                drop-shadow(0 0 8px var(--glow-color))
+                drop-shadow(0 0 20px var(--glow-color))
+                drop-shadow(0 0 40px color-mix(in srgb, var(--glow-color) 60%, transparent))
+                drop-shadow(0 0 60px color-mix(in srgb, var(--glow-color) 30%, transparent));
+        }
+
+        .specimen-overlay img.butterfly { --glow-color: var(--accent-cyan); }
+        .specimen-overlay img.beetle { --glow-color: var(--accent-amber); }
+        .specimen-overlay img.mantis { --glow-color: var(--accent-rose); }
+        .specimen-overlay img.wasp { --glow-color: var(--accent-violet); }
+        .specimen-overlay img.color-checker { --glow-color: var(--accent-blue); }
+        .specimen-overlay img.labels { --glow-color: rgba(255,255,255,0.8); }
+
+        /* Detection labels that appear on hover/active */
+        .detection-labels {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .detection-labels.active {
+            opacity: 1;
+        }
+
+        .detection-tag {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: var(--bg-dark);
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+        }
+
+        .detection-labels.active .detection-tag {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Fixed label positions to match actual specimen locations */
+        .detection-tag.butterfly {
+            top: 8%;
+            left: 18%;
+            background: var(--accent-cyan);
+            transition-delay: 0.1s;
+        }
+
+        .detection-tag.beetle {
+            top: 8%;
+            left: 52%;
+            background: var(--accent-amber);
+            transition-delay: 0.2s;
+        }
+
+        .detection-tag.mantis {
+            top: 55%;
+            right: 8%;
+            background: var(--accent-violet);
+            transition-delay: 0.3s;
+        }
+
+        .detection-tag.wasp {
+            top: 55%;
+            left: 18%;
+            background: var(--accent-rose);
+            transition-delay: 0.4s;
+        }
+
+        .detection-tag.color-checker {
+            top: 55%;
+            left: 44%;
+            background: var(--accent-blue);
+            transition-delay: 0.5s;
+        }
+
+        .detection-tag .conf {
+            opacity: 0.7;
+            margin-left: 6px;
+            font-size: 0.55rem;
+        }
+
+        /* Scrolling Content Area - Right Side */
+        .content-scroll {
+            width: 45%;
+            padding: 0 4rem;
+        }
+
+        /* Individual step sections */
+        .step-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-indicator {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            width: 44px; 
+            height: 44px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem; 
+            font-weight: 600;
+        }
+
+        .step-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+        }
+
+        .step-section h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .step-section > p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .feature-list { 
+            list-style: none; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.875rem; 
+        }
+
+        .feature-list li {
+            display: flex; 
+            align-items: flex-start; 
+            gap: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            content: '→';
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Extraction Cards - Enhanced with Data Flow Animation */
+        .extraction-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .extraction-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-subtle);
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .extraction-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--card-accent);
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Data flow scan line effect */
+        .extraction-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(0,229,184,0.1) 45%,
+                rgba(0,229,184,0.2) 50%,
+                rgba(0,229,184,0.1) 55%,
+                transparent 100%
+            );
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
+
+        .extraction-card.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .extraction-card.visible::before {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .extraction-card.extracting::after {
+            animation: dataScan 1.5s ease-in-out;
+        }
+
+        @keyframes dataScan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .extraction-card.butterfly { --card-accent: var(--accent-cyan); }
+        .extraction-card.beetle { --card-accent: var(--accent-amber); }
+        .extraction-card.mantis { --card-accent: var(--accent-rose); }
+        .extraction-card.wasp { --card-accent: var(--accent-violet); }
+        .extraction-card.color-checker { --card-accent: var(--accent-blue); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .card-specimen-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.03);
+            transition: all 0.5s;
+        }
+
+        .extraction-card.visible .card-specimen-img {
+            box-shadow: 0 0 20px rgba(var(--card-accent-rgb), 0.3);
+        }
+
+        .card-title-group { flex: 1; }
+
+        .card-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .card-subtitle {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(0,229,184,0.1);
+            color: var(--accent-cyan);
+            transition: all 0.5s;
+        }
+
+        .card-status.processing {
+            background: rgba(255,176,32,0.1);
+            color: var(--accent-amber);
+            animation: statusBlink 1s ease-in-out infinite;
+        }
+
+        .card-status.complete {
+            background: rgba(0,229,184,0.2);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0,229,184,0.3);
+        }
+
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .card-data {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            line-height: 2;
+        }
+
+        .card-data .key { color: var(--accent-violet); }
+        .card-data .value { color: var(--accent-cyan); }
+        .card-data .string { color: var(--accent-amber); }
+
+        /* Data typing animation */
+        .card-data .data-line {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .extraction-card.visible .data-line {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .extraction-card.visible .data-line:nth-child(1) { transition-delay: 0.3s; }
+        .extraction-card.visible .data-line:nth-child(2) { transition-delay: 0.5s; }
+        .extraction-card.visible .data-line:nth-child(3) { transition-delay: 0.7s; }
+
+        /* Database Section - Enhanced with Dynamic Animation */
+        .database-preview {
+            background: var(--bg-panel);
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .database-preview::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet), var(--accent-rose));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .database-preview.active::before {
+            opacity: 1;
+            animation: gradientFlow 3s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .database-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .database-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .database-title::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .database-title .db-status {
+            font-size: 0.6rem;
+            color: var(--accent-cyan);
+            margin-left: 0.5rem;
+            padding: 2px 6px;
+            background: rgba(0,229,184,0.1);
+            border-radius: 3px;
+        }
+
+        .database-stats {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .stat { text-align: right; }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            transition: all 0.3s;
+        }
+
+        .stat-value.counting {
+            animation: countPulse 0.3s ease-out;
+        }
+
+        @keyframes countPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--accent-amber); }
+            100% { transform: scale(1); }
+        }
+
+        .stat-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .table-body {
+            position: relative;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 32px 1.2fr 0.8fr 80px;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid var(--border-subtle);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Row insert animation flash */
+        .table-row::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,229,184,0.2), transparent);
+            transform: translateX(-100%);
+            pointer-events: none;
+        }
+
+        .table-row.inserting::before {
+            animation: rowInsert 0.6s ease-out;
+        }
+
+        @keyframes rowInsert {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .table-row.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .table-row:last-child { border-bottom: none; }
+
+        .row-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.03);
+            transition: all 0.3s;
+        }
+
+        .table-row.visible .row-img {
+            box-shadow: 0 0 10px rgba(0,229,184,0.2);
+        }
+
+        .row-species {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .row-family { color: var(--text-secondary); }
+
+        .row-status {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-amber);
+            transition: all 0.5s;
+        }
+
+        .status-dot.synced {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-text {
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            font-size: 0.55rem;
+            transition: color 0.5s;
+        }
+
+        .status-text.synced {
+            color: var(--accent-cyan);
+        }
+
+        /* Data stream visualization */
+        .data-stream {
+            position: absolute;
+            left: 50%;
+            top: -30px;
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--accent-cyan), transparent);
+            opacity: 0;
+            transform: translateX(-50%);
+        }
+
+        .table-row.inserting .data-stream {
+            opacity: 1;
+            animation: streamDown 0.4s ease-out;
+        }
+
+        @keyframes streamDown {
+            0% { top: -30px; height: 30px; opacity: 1; }
+            100% { top: 0; height: 0; opacity: 0; }
+        }
+
+        /* Progress Indicator - Enhanced */
+        .pipeline-progress {
+            position: fixed;
+            left: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 500;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--bg-panel);
+            border: 2px solid var(--border-subtle);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2;
+            position: relative;
+        }
+
+        .progress-dot::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: transparent;
+            transition: all 0.5s;
+        }
+
+        .progress-dot.completed {
+            border-color: var(--accent-cyan);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0,229,184,0.5);
+            transform: scale(1);
+        }
+
+        .progress-dot.active {
+            border-color: var(--accent-cyan);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 25px var(--accent-cyan), 0 0 50px rgba(0,229,184,0.3);
+            transform: scale(1.3);
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+
+        .progress-dot.active::before {
+            background: radial-gradient(circle, rgba(0,229,184,0.3) 0%, transparent 70%);
+            animation: progressRing 2s ease-in-out infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { box-shadow: 0 0 25px var(--accent-cyan), 0 0 50px rgba(0,229,184,0.3); }
+            50% { box-shadow: 0 0 35px var(--accent-cyan), 0 0 70px rgba(0,229,184,0.4); }
+        }
+
+        @keyframes progressRing {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        .progress-step-label {
+            position: absolute;
+            left: 30px;
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .progress-dot.active + .progress-step-label,
+        .progress-dot.completed + .progress-step-label {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--text-secondary);
+        }
+
+        .progress-dot.active + .progress-step-label {
+            color: var(--accent-cyan);
+        }
+
+        .progress-line {
+            width: 2px;
+            height: 80px;
+            background: var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to bottom, var(--accent-cyan), rgba(0,229,184,0.5));
+            transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .progress-fill.animating {
+            animation: progressFlowDown 0.8s ease-out forwards;
+        }
+
+        @keyframes progressFlowDown {
+            0% { height: 0%; }
+            100% { height: 100%; }
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 6rem 2rem;
+            background: var(--bg-panel);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .team-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .team-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1100px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-member {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-color: var(--accent-cyan);
+        }
+
+        .team-member:hover::before {
+            opacity: 1;
+        }
+
+        .member-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 3px solid var(--border-subtle);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .team-member:hover .member-photo {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0,229,184,0.3);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .team-member:hover .member-photo img {
+            transform: scale(1.1);
+        }
+
+        .member-photo.member-placeholder {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-initials {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .member-role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0,229,184,0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .member-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .linkedin-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0,119,181,0.1);
+            color: #0077b5;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,119,181,0.2);
+        }
+
+        .linkedin-button:hover {
+            background: #0077b5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,119,181,0.4);
+        }
+
+        .linkedin-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(0,229,184,0.1) 0%, rgba(167,139,250,0.1) 100%);
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-section > p,
+        .newsletter-container > p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0,229,184,0.2);
+        }
+
+        .newsletter-form input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .newsletter-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-message.success {
+            background: rgba(0,229,184,0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0,229,184,0.3);
+        }
+
+        .newsletter-message.error {
+            background: rgba(251,113,133,0.1);
+            color: var(--accent-rose);
+            border: 1px solid rgba(251,113,133,0.3);
+        }
+
+        .newsletter-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--bg-panel);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .footer-logo span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-tagline {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-copyright {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+            width: 100%;
+            text-align: center;
+        }
+
+        .footer-copyright p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 450px;
+            background: rgba(15, 15, 17, 0.98);
+            color: var(--text-primary);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .cookie-banner h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-cyan);
+        }
+
+        .cookie-banner p {
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn-accept {
+            background: var(--accent-cyan);
+            color: var(--bg-dark);
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-accept:hover {
+            box-shadow: 0 0 20px rgba(0, 229, 184, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cookie-btn-reject {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-reject:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        @media (max-width: 500px) {
+            .cookie-banner {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 100%;
+                border-radius: 16px 16px 0 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .pipeline-container {
+                flex-direction: column;
+            }
+
+            .image-viewport {
+                width: 100%;
+                height: 50vh;
+                position: sticky;
+                top: 0;
+            }
+
+            .content-scroll {
+                width: 100%;
+                padding: 0 2rem;
+            }
+
+            .step-section {
+                min-height: auto;
+                padding: 4rem 0;
+            }
+
+            .pipeline-progress { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+
+            .image-viewport {
+                height: 40vh;
+                padding: 1rem;
+            }
+
+            .content-scroll {
+                padding: 0 1.5rem;
+            }
+
+            .extraction-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-row {
+                grid-template-columns: 28px 1fr 70px;
+            }
+
+            .row-family { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="images/old/logo.png" alt="NEST Logo">
+            </div>
+            <span class="logo-text">NEST</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#capture">Capture</a></li>
+            <li><a href="#detect">Detection</a></li>
+            <li><a href="#extract">Extraction</a></li>
+            <li><a href="#database">Database</a></li>
+            <li><a href="#team">Team</a></li>
+        </ul>
+    </nav>
+
+    <div class="pipeline-progress">
+        <div class="progress-step">
+            <div class="progress-dot" data-step="1"></div>
+            <span class="progress-step-label">Capture</span>
+            <div class="progress-line"><div class="progress-fill" data-fill="1"></div></div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-dot" data-step="2"></div>
+            <span class="progress-step-label">Detect</span>
+            <div class="progress-line"><div class="progress-fill" data-fill="2"></div></div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-dot" data-step="3"></div>
+            <span class="progress-step-label">Extract</span>
+            <div class="progress-line"><div class="progress-fill" data-fill="3"></div></div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-dot" data-step="4"></div>
+            <span class="progress-step-label">Database</span>
+        </div>
+    </div>
+
+    <section class="hero">
+        <span class="hero-badge">AI-Powered Museum Digitization</span>
+        <h1>Images to<br>Structured Data</h1>
+        <p>Automated object detection, intelligent data extraction, and seamless database compilation. Transform your museum collections into living digital archives.</p>
+        <div class="cta-group">
+            <a href="#pipeline" class="btn btn-primary">Explore Pipeline</a>
+            <a href="#newsletter" class="btn btn-secondary">Join Beta</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <div id="pipeline" class="pipeline-container">
+        <!-- Fixed Image Viewport -->
+        <div class="image-viewport">
+            <div class="image-stage">
+                <div class="base-image">
+                    <img src="images/base.jpg" alt="Entomological specimen display box">
+                </div>
+                
+                <!-- Specimen overlays with transparent backgrounds -->
+                <div class="specimen-overlay">
+                    <img src="images/butterfly.png" alt="" class="butterfly" data-specimen="butterfly">
+                    <img src="images/beetle.png" alt="" class="beetle" data-specimen="beetle">
+                    <img src="images/mantid.png" alt="" class="mantis" data-specimen="mantis">
+                    <img src="images/wasp.png" alt="" class="wasp" data-specimen="wasp">
+                    <img src="images/color.png" alt="" class="color-checker" data-specimen="color-checker">
+                </div>
+
+                <!-- Detection labels - positioned to match actual specimen locations -->
+                <div class="detection-labels">
+                    <div class="detection-tag butterfly">LEPIDOPTERA <span class="conf">0.98</span></div>
+                    <div class="detection-tag beetle">COLEOPTERA <span class="conf">0.97</span></div>
+                    <div class="detection-tag wasp">HYMENOPTERA <span class="conf">0.96</span></div>
+                    <div class="detection-tag mantis">MANTODEA <span class="conf">0.99</span></div>
+                    <div class="detection-tag color-checker">CALIBRATION <span class="conf">1.00</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrolling Content -->
+        <div class="content-scroll">
+            <!-- Step 1: Image Capture -->
+            <section id="capture" class="step-section" data-step="1">
+                <div class="step-indicator">
+                    <span class="step-number" style="background: var(--accent-cyan); color: var(--bg-dark);">01</span>
+                    <span class="step-label">Image Capture</span>
+                </div>
+                <h2>High-Resolution<br>Specimen Imaging</h2>
+                <p>Begin with a calibrated photograph of your specimen display box. The system processes complete entomological collections including specimens, labels, and color calibration charts.</p>
+                <ul class="feature-list">
+                    <li>Standard museum display format support</li>
+                    <li>Integrated color calibration via X-Rite charts</li>
+                    <li>Automatic white balance correction</li>
+                    <li>Multi-specimen batch processing</li>
+                </ul>
+            </section>
+
+            <!-- Step 2: Detection -->
+            <section id="detect" class="step-section" data-step="2">
+                <div class="step-indicator">
+                    <span class="step-number" style="background: var(--accent-amber); color: var(--bg-dark);">02</span>
+                    <span class="step-label">Object Detection</span>
+                </div>
+                <h2>Intelligent<br>Object Recognition</h2>
+                <p>Neural networks identify and isolate each specimen, label, and calibration element with sub-pixel precision. Spotlight effects highlight detected objects with confidence scores.</p>
+                <ul class="feature-list">
+                    <li>Multi-class detection: insects, labels, charts</li>
+                    <li>Order-level taxonomic classification</li>
+                    <li>Instance segmentation for overlapping items</li>
+                    <li>Real-time confidence scoring</li>
+                </ul>
+            </section>
+
+            <!-- Step 3: Extraction -->
+            <section id="extract" class="step-section" data-step="3">
+                <div class="step-indicator">
+                    <span class="step-number" style="background: var(--accent-violet); color: var(--bg-dark);">03</span>
+                    <span class="step-label">Data Extraction</span>
+                </div>
+                <h2>Structured<br>Data Extraction</h2>
+                <p>Each detected object undergoes specialized processing. OCR extracts label text, morphological features are analyzed, and color profiles are generated using calibration data.</p>
+                <ul class="feature-list">
+                    <li>OCR with historical font recognition</li>
+                    <li>Morphometric measurement extraction</li>
+                    <li>Taxonomic hierarchy resolution</li>
+                    <li>Georeferencing from locality data</li>
+                </ul>
+                
+                <div class="extraction-grid">
+                    <div class="extraction-card butterfly" data-delay="0">
+                        <div class="card-header">
+                            <img class="card-specimen-img" src="images/butterfly.png" alt="">
+                            <div class="card-title-group">
+                                <div class="card-title">Morpho menelaus</div>
+                                <div class="card-subtitle">Lepidoptera</div>
+                            </div>
+                            <span class="card-status" data-initial="SCANNING" data-final="EXTRACTED">SCANNING</span>
+                        </div>
+                        <div class="card-data">
+                            <div class="data-line"><span class="key">family</span>: <span class="string">"Nymphalidae"</span></div>
+                            <div class="data-line"><span class="key">wingspan</span>: <span class="value">138</span>mm</div>
+                            <div class="data-line"><span class="key">locality</span>: <span class="string">"Brazil, 2020"</span></div>
+                        </div>
+                    </div>
+                    <div class="extraction-card beetle" data-delay="1">
+                        <div class="card-header">
+                            <img class="card-specimen-img" src="images/beetle.png" alt="">
+                            <div class="card-title-group">
+                                <div class="card-title">Megasoma elephas</div>
+                                <div class="card-subtitle">Coleoptera</div>
+                            </div>
+                            <span class="card-status" data-initial="SCANNING" data-final="EXTRACTED">SCANNING</span>
+                        </div>
+                        <div class="card-data">
+                            <div class="data-line"><span class="key">family</span>: <span class="string">"Scarabaeidae"</span></div>
+                            <div class="data-line"><span class="key">length</span>: <span class="value">127</span>mm</div>
+                            <div class="data-line"><span class="key">locality</span>: <span class="string">"Peru, 2019"</span></div>
+                        </div>
+                    </div>
+                    <div class="extraction-card mantis" data-delay="2">
+                        <div class="card-header">
+                            <img class="card-specimen-img" src="images/mantid.png" alt="">
+                            <div class="card-title-group">
+                                <div class="card-title">Mantis religiosa</div>
+                                <div class="card-subtitle">Mantodea</div>
+                            </div>
+                            <span class="card-status" data-initial="SCANNING" data-final="EXTRACTED">SCANNING</span>
+                        </div>
+                        <div class="card-data">
+                            <div class="data-line"><span class="key">family</span>: <span class="string">"Mantidae"</span></div>
+                            <div class="data-line"><span class="key">length</span>: <span class="value">75</span>mm</div>
+                            <div class="data-line"><span class="key">locality</span>: <span class="string">"Italy, 2021"</span></div>
+                        </div>
+                    </div>
+                    <div class="extraction-card wasp" data-delay="3">
+                        <div class="card-header">
+                            <img class="card-specimen-img" src="images/wasp.png" alt="">
+                            <div class="card-title-group">
+                                <div class="card-title">Polistes dominula</div>
+                                <div class="card-subtitle">Hymenoptera</div>
+                            </div>
+                            <span class="card-status" data-initial="SCANNING" data-final="EXTRACTED">SCANNING</span>
+                        </div>
+                        <div class="card-data">
+                            <div class="data-line"><span class="key">family</span>: <span class="string">"Vespidae"</span></div>
+                            <div class="data-line"><span class="key">length</span>: <span class="value">18</span>mm</div>
+                            <div class="data-line"><span class="key">locality</span>: <span class="string">"France, 2022"</span></div>
+                        </div>
+                    </div>
+                    <div class="extraction-card color-checker" data-delay="4">
+                        <div class="card-header">
+                            <img class="card-specimen-img" src="images/color.png" alt="">
+                            <div class="card-title-group">
+                                <div class="card-title">X-Rite ColorChecker</div>
+                                <div class="card-subtitle">Calibration</div>
+                            </div>
+                            <span class="card-status" data-initial="ANALYZING" data-final="CALIBRATED">ANALYZING</span>
+                        </div>
+                        <div class="card-data">
+                            <div class="data-line"><span class="key">type</span>: <span class="string">"ColorChecker Classic"</span></div>
+                            <div class="data-line"><span class="key">patches</span>: <span class="value">24</span></div>
+                            <div class="data-line"><span class="key">deltaE</span>: <span class="value">0.8</span> (excellent)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Database -->
+            <section id="database" class="step-section" data-step="4">
+                <div class="step-indicator">
+                    <span class="step-number" style="background: var(--accent-rose); color: var(--bg-dark);">04</span>
+                    <span class="step-label">Database Sync</span>
+                </div>
+                <h2>Automated<br>Database Population</h2>
+                <p>Extracted data is validated, normalized, and automatically compiled into your collection database. Full audit trails maintain provenance for each digitized specimen.</p>
+                <ul class="feature-list">
+                    <li>Automatic schema mapping and validation</li>
+                    <li>Duplicate detection and merge suggestions</li>
+                    <li>GBIF and iDigBio compatible export</li>
+                    <li>Real-time sync with collection systems</li>
+                </ul>
+
+                <div class="database-preview" id="database-preview">
+                    <div class="database-header">
+                        <div class="database-title">
+                            specimens_collection
+                            <span class="db-status">CONNECTED</span>
+                        </div>
+                        <div class="database-stats">
+                            <div class="stat">
+                                <div class="stat-value" id="record-count">0</div>
+                                <div class="stat-label">Records</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value" id="order-count">0</div>
+                                <div class="stat-label">Orders</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-body">
+                        <div class="table-row" data-delay="0" data-order="Lepidoptera">
+                            <div class="data-stream"></div>
+                            <img class="row-img" src="images/butterfly.png" alt="">
+                            <span class="row-species">M. menelaus</span>
+                            <span class="row-family">Nymphalidae</span>
+                            <span class="row-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">inserting</span>
+                            </span>
+                        </div>
+                        <div class="table-row" data-delay="1" data-order="Coleoptera">
+                            <div class="data-stream"></div>
+                            <img class="row-img" src="images/beetle.png" alt="">
+                            <span class="row-species">M. elephas</span>
+                            <span class="row-family">Scarabaeidae</span>
+                            <span class="row-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">inserting</span>
+                            </span>
+                        </div>
+                        <div class="table-row" data-delay="2" data-order="Mantodea">
+                            <div class="data-stream"></div>
+                            <img class="row-img" src="images/mantid.png" alt="">
+                            <span class="row-species">M. religiosa</span>
+                            <span class="row-family">Mantidae</span>
+                            <span class="row-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">inserting</span>
+                            </span>
+                        </div>
+                        <div class="table-row" data-delay="3" data-order="Hymenoptera">
+                            <div class="data-stream"></div>
+                            <img class="row-img" src="images/wasp.png" alt="">
+                            <span class="row-species">P. dominula</span>
+                            <span class="row-family">Vespidae</span>
+                            <span class="row-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">inserting</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+        <div class="team-container">
+            <div class="team-header">
+                <h2>Our Team</h2>
+                <p>Museums aren't dusty old containers of forgotten objects. Our mission is to bring innovation and resurrect our cultural heritage.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/old/andrea-cerofolini.jpg" alt="Andrea Cerofolini">
+                    </div>
+                    <h3 class="member-name">Andrea Cerofolini</h3>
+                    <span class="member-role">Co-Founder</span>
+                    <p class="member-description">
+                        Former researcher at Museo La Specola, Florence
+                    </p>
+                    <a href="https://www.linkedin.com/in/andrea-cerofolini-aa287a303/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/old/michele-bertoncini.jpg" alt="Michele Bertoncini">
+                    </div>
+                    <h3 class="member-name">Michele Bertoncini</h3>
+                    <span class="member-role">Co-Founder</span>
+                    <p class="member-description">
+                        Former researcher at Museo La Specola, Florence
+                    </p>
+                    <a href="https://www.linkedin.com/in/michele-bertoncini-73b7871bb/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="images/old/andrelfoto.jpg" alt="Andres Lazzari">
+                    </div>
+                    <h3 class="member-name">Andres Lazzari</h3>
+                    <span class="member-role">CTO</span>
+                    <p class="member-description">
+                        Full-stack developer
+                    </p>
+                    <a href="https://www.linkedin.com/in/andres-lazzari/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo member-placeholder">
+                        <span class="member-initials">AE</span>
+                    </div>
+                    <h3 class="member-name">Amir Eid</h3>
+                    <span class="member-role">CTO</span>
+                    <p class="member-description">
+                        Expert in object detection model architectures
+                    </p>
+                    <a href="#" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="newsletter-section">
+        <div class="newsletter-container">
+            <h2>Join the Beta</h2>
+            <p>Be among the first to revolutionize your museum's digitization. Get updates on launch and pricing details.</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" name="user_email" placeholder="Your email" required>
+                <button type="submit" class="btn btn-primary">Request Access</button>
+            </form>
+            <div class="newsletter-message success" id="successMessage">
+                Thanks for your interest! We'll contact you soon with more details.
+            </div>
+            <div class="newsletter-message error" id="errorMessage">
+                An error occurred. Please try again later.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="images/old/logo.png" alt="NEST Logo">
+                    <span>NEST</span>
+                </div>
+                <p class="footer-tagline">Making every museum a world-accessible heritage</p>
+            </div>
+            <div class="footer-links">
+                <a href="#capture">Pipeline</a>
+                <a href="#team">Team</a>
+                <a href="#newsletter">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                <p>&copy; 2025 NEST. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsentBanner" class="cookie-banner">
+        <h4>We use cookies to improve NEST</h4>
+        <p>
+            We use technical and analytics cookies to understand how you interact with the site and improve it.
+            We respect your privacy: data is anonymous.
+        </p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Accept All</button>
+            <button class="cookie-btn-reject" onclick="rejectCookies()">Reject</button>
+        </div>
+    </div>
+
+    <script>
+        class SmoothPipelineAnimator {
+            constructor() {
+                this.stepSections = document.querySelectorAll('.step-section');
+                this.specimenOverlays = document.querySelectorAll('.specimen-overlay img');
+                this.detectionLabels = document.querySelector('.detection-labels');
+                this.progressDots = document.querySelectorAll('.progress-dot');
+                this.progressFills = document.querySelectorAll('.progress-fill');
+                this.extractionCards = document.querySelectorAll('.extraction-card');
+                this.tableRows = document.querySelectorAll('.table-row');
+                this.recordCounter = document.getElementById('record-count');
+                this.orderCounter = document.getElementById('order-count');
+                this.databasePreview = document.getElementById('database-preview');
+
+                this.currentStep = 0;
+                this.previousStep = 0;
+                this.uniqueOrders = new Set();
+
+                this.init();
+            }
+
+            init() {
+                // Observe step sections for visibility
+                const sectionObserver = new IntersectionObserver(
+                    (entries) => this.handleSectionIntersect(entries),
+                    {
+                        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+                        rootMargin: '-20% 0px -20% 0px'
+                    }
+                );
+
+                this.stepSections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+
+                // Smooth scroll for anchor links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = document.querySelector(anchor.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                // Hero parallax
+                window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+            }
+
+            handleScroll() {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+
+                if (hero && scrolled < window.innerHeight) {
+                    const progress = scrolled / window.innerHeight;
+                    hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    hero.style.opacity = 1 - (progress * 1.2);
+                }
+            }
+
+            handleSectionIntersect(entries) {
+                // Find the most visible section
+                let maxRatio = 0;
+                let activeStep = this.currentStep;
+
+                entries.forEach(entry => {
+                    const section = entry.target;
+                    const step = parseInt(section.dataset.step);
+
+                    if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                        maxRatio = entry.intersectionRatio;
+                        activeStep = step;
+                    }
+
+                    // Handle visibility
+                    if (entry.intersectionRatio > 0.2) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+
+                // Only update if step changed
+                if (activeStep !== this.currentStep && maxRatio > 0.3) {
+                    this.previousStep = this.currentStep;
+                    this.currentStep = activeStep;
+
+                    this.updateProgress(activeStep);
+                    this.updateImageState(activeStep);
+                    this.updateStepAnimations(activeStep);
+                }
+            }
+
+            updateImageState(step) {
+                // Step 1: Just show specimens
+                if (step === 1) {
+                    this.specimenOverlays.forEach(img => {
+                        img.classList.add('active');
+                        img.classList.remove('spotlight');
+                    });
+                    this.detectionLabels.classList.remove('active');
+                }
+
+                // Step 2+: Add spotlight and labels
+                if (step >= 2) {
+                    this.detectionLabels.classList.add('active');
+                    this.specimenOverlays.forEach((img, index) => {
+                        setTimeout(() => {
+                            img.classList.add('active', 'spotlight');
+                        }, index * 100);
+                    });
+                }
+
+                // Going back to before step 2
+                if (step < 2 && this.previousStep >= 2) {
+                    this.specimenOverlays.forEach(img => {
+                        img.classList.remove('spotlight');
+                    });
+                    this.detectionLabels.classList.remove('active');
+                }
+            }
+
+            updateStepAnimations(step) {
+                // Extraction Cards (Step 3)
+                if (step === 3) {
+                    this.showExtractionCards();
+                } else if (step < 3) {
+                    this.hideExtractionCards();
+                }
+
+                // Database (Step 4)
+                if (step === 4) {
+                    this.showDatabase();
+                } else if (step < 4) {
+                    this.hideDatabase();
+                }
+            }
+
+            showExtractionCards() {
+                this.extractionCards.forEach((card, i) => {
+                    const status = card.querySelector('.card-status');
+                    const initialText = status?.dataset.initial || 'SCANNING';
+                    const finalText = status?.dataset.final || 'EXTRACTED';
+
+                    setTimeout(() => {
+                        card.classList.add('visible', 'extracting');
+                        if (status) {
+                            status.textContent = initialText;
+                            status.classList.add('processing');
+                            status.classList.remove('complete');
+                        }
+
+                        setTimeout(() => {
+                            card.classList.remove('extracting');
+                            if (status) {
+                                status.textContent = finalText;
+                                status.classList.remove('processing');
+                                status.classList.add('complete');
+                            }
+                        }, 1200);
+                    }, 150 + (i * 250));
+                });
+            }
+
+            hideExtractionCards() {
+                this.extractionCards.forEach((card, i) => {
+                    const status = card.querySelector('.card-status');
+                    setTimeout(() => {
+                        card.classList.remove('visible', 'extracting');
+                        if (status) {
+                            status.textContent = status.dataset.initial || 'SCANNING';
+                            status.classList.remove('processing', 'complete');
+                        }
+                    }, i * 50);
+                });
+            }
+
+            showDatabase() {
+                let recordCount = 0;
+                this.uniqueOrders.clear();
+
+                if (this.databasePreview) {
+                    this.databasePreview.classList.add('active');
+                }
+
+                // Reset counters
+                if (this.recordCounter) this.recordCounter.textContent = '0';
+                if (this.orderCounter) this.orderCounter.textContent = '0';
+
+                this.tableRows.forEach((row, i) => {
+                    const statusDot = row.querySelector('.status-dot');
+                    const statusText = row.querySelector('.status-text');
+                    const order = row.dataset.order;
+
+                    setTimeout(() => {
+                        row.classList.add('visible', 'inserting');
+
+                        recordCount++;
+                        if (this.recordCounter) {
+                            this.recordCounter.classList.add('counting');
+                            this.recordCounter.textContent = recordCount;
+                            setTimeout(() => this.recordCounter.classList.remove('counting'), 300);
+                        }
+
+                        if (order && !this.uniqueOrders.has(order)) {
+                            this.uniqueOrders.add(order);
+                            if (this.orderCounter) {
+                                this.orderCounter.classList.add('counting');
+                                this.orderCounter.textContent = this.uniqueOrders.size;
+                                setTimeout(() => this.orderCounter.classList.remove('counting'), 300);
+                            }
+                        }
+
+                        setTimeout(() => {
+                            row.classList.remove('inserting');
+                            if (statusDot) statusDot.classList.add('synced');
+                            if (statusText) {
+                                statusText.textContent = 'synced';
+                                statusText.classList.add('synced');
+                            }
+                        }, 500);
+                    }, 300 + (i * 400));
+                });
+            }
+
+            hideDatabase() {
+                if (this.databasePreview) {
+                    this.databasePreview.classList.remove('active');
+                }
+
+                if (this.recordCounter) this.recordCounter.textContent = '0';
+                if (this.orderCounter) this.orderCounter.textContent = '0';
+                this.uniqueOrders.clear();
+
+                this.tableRows.forEach((row, i) => {
+                    const statusDot = row.querySelector('.status-dot');
+                    const statusText = row.querySelector('.status-text');
+
+                    setTimeout(() => {
+                        row.classList.remove('visible', 'inserting');
+                        if (statusDot) statusDot.classList.remove('synced');
+                        if (statusText) {
+                            statusText.textContent = 'inserting';
+                            statusText.classList.remove('synced');
+                        }
+                    }, i * 50);
+                });
+            }
+
+            updateProgress(step) {
+                // Update all progress dots based on current step
+                this.progressDots.forEach((dot, i) => {
+                    const dotStep = i + 1;
+                    dot.classList.remove('active', 'completed');
+
+                    if (dotStep < step) {
+                        dot.classList.add('completed');
+                    } else if (dotStep === step) {
+                        dot.classList.add('active');
+                    }
+                });
+
+                // Update progress line fills
+                this.progressFills.forEach((fill, i) => {
+                    const fillStep = i + 1;
+
+                    if (fillStep < step) {
+                        fill.style.height = '100%';
+                    } else {
+                        fill.style.height = '0%';
+                    }
+                });
+            }
+        }
+
+        // Newsletter form handler
+        document.addEventListener('DOMContentLoaded', () => {
+            new SmoothPipelineAnimator();
+
+            // Newsletter form
+            const form = document.getElementById('newsletterForm');
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // Simulate form submission (replace with actual EmailJS integration)
+                    successMsg.classList.remove('show');
+                    errorMsg.classList.remove('show');
+
+                    // Show success message
+                    setTimeout(() => {
+                        successMsg.classList.add('show');
+                        form.reset();
+
+                        // Track newsletter signup if Clarity is active
+                        if (typeof clarity === 'function') {
+                            clarity("event", "newsletter_signup");
+                        }
+
+                        setTimeout(() => {
+                            successMsg.classList.remove('show');
+                        }, 5000);
+                    }, 500);
+                });
+            }
+
+            // Cookie consent check on load
+            initCookieConsent();
+        });
+
+        // === Cookie Consent Logic & Tracking ===
+        function loadTrackingScript() {
+            // Microsoft Clarity script
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "uapk5afb76");
+
+            console.log("Tracking enabled.");
+        }
+
+        function initCookieConsent() {
+            const consent = localStorage.getItem('nest_cookie_consent');
+            const banner = document.getElementById('cookieConsentBanner');
+
+            if (consent === 'true') {
+                // User already accepted, start tracking
+                loadTrackingScript();
+            } else if (consent === 'false') {
+                // User rejected, do nothing
+            } else {
+                // First visit, show banner after 1 second
+                setTimeout(() => {
+                    if (banner) banner.style.display = 'block';
+                }, 1000);
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('nest_cookie_consent', 'true');
+            const banner = document.getElementById('cookieConsentBanner');
+            if (banner) banner.style.display = 'none';
+            loadTrackingScript();
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('nest_cookie_consent', 'false');
+            const banner = document.getElementById('cookieConsentBanner');
+            if (banner) banner.style.display = 'none';
+            // Don't load tracking script
+        }
+    </script>
+</body>
+</html>

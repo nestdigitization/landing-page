@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEST - Digitalizzazione Museale Intelligente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #899f6a;
+            --color-secondary: #a47764;
+            --color-accent: #a89a8f;
+            --color-light: #f0e9e0;
+            --color-dark: #2c2c2c;
+            --color-white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--color-dark);
+            background-color: var(--color-white);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--color-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(137, 159, 106, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--color-dark);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 5% 80px;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--color-light) 0%, rgba(255, 255, 255, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.2;
+            color: var(--color-dark);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero-text h1 span {
+            color: var(--color-primary);
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--color-accent);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s 0.6s both;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--color-primary);
+            padding: 0.7rem 1.8rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--color-primary);
+            cursor: pointer;
+        }
+
+        .secondary-button:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: var(--color-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-icon img {
+            width: 50%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 5%;
+            background: var(--color-light);
+        }
+
+        .common-upload-step {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .upload-icon img {
+            width: 60px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .common-upload-step h3 {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .common-upload-step p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Workflow Split Arrows */
+        .workflow-split-arrows {
+            position: relative;
+            height: 100px;
+            max-width: 715px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .workflow-split-arrows::before {
+            content: '';
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 40px;
+            background: linear-gradient(to right, #7ba85c 50%, #c48969 50%);
+            z-index: 1;
+        }
+
+        .arrow-branch {
+            position: relative;
+            width: 50%;
+            height: 100%;
+        }
+
+        .branch-left .line-curve {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border-top: 5px solid #7ba85c;
+            border-left: 5px solid #7ba85c;
+            border-top-left-radius: 30px;
+            margin-right: 2px;
+        }
+
+        .branch-left .arrow-head {
+            position: absolute;
+            bottom: -5px;
+            left: -9px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #7ba85c;
+        }
+
+        .branch-right .line-curve {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-top: 5px solid #c48969;
+            border-right: 5px solid #c48969;
+            border-top-right-radius: 30px;
+            margin-left: 2px;
+        }
+
+        .branch-right .arrow-head {
+            position: absolute;
+            bottom: -5px;
+            right: -9px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #c48969;
+        }
+
+        .arrow-mobile {
+            display: none;
+        }
+
+        /* Dual Workflows */
+        .dual-workflows {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 40px;
+            max-width: 2000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .workflow-path {
+            flex: 1;
+            width: 0;
+            min-width: 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .workflow-path:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .workflow-path-1 {
+            border-top: 5px solid #7ba85c;
+        }
+
+        .workflow-path-2 {
+            border-top: 5px solid #c48969;
+        }
+
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .workflow-gif-container {
+            width: 100%;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background: #fafafa;
+        }
+
+        .workflow-gif-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .mids-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mids-1 {
+            background: linear-gradient(135deg, #7ba85c, #9bc17a);
+        }
+
+        .mids-3 {
+            background: linear-gradient(135deg, #c48969, #d4a085);
+        }
+
+        .workflow-header h3 {
+            font-size: 1.6rem;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-subtitle {
+            font-size: 1rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        .workflow-process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .workflow-process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step-number-circle {
+            flex-shrink: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            z-index: 2;
+        }
+
+        .workflow-path-1 .step-visual-1 .step-number-circle {
+            background: linear-gradient(135deg, #7ba85c, #9bc17a);
+        }
+
+        .workflow-path-1 .step-decode-1 .step-number-circle {
+            background: linear-gradient(135deg, #6a9450, #7ba85c);
+        }
+
+        .workflow-path-1 .step-data-1 .step-number-circle {
+            background: linear-gradient(135deg, #5a8444, #6a9450);
+        }
+
+        .workflow-path-2 .step-visual-2 .step-number-circle {
+            background: linear-gradient(135deg, #c48969, #d4a085);
+        }
+
+        .workflow-path-2 .step-decode-2 .step-number-circle {
+            background: linear-gradient(135deg, #b4795c, #c48969);
+        }
+
+        .workflow-path-2 .step-data-2 .step-number-circle {
+            background: linear-gradient(135deg, #a46950, #b4795c);
+        }
+
+        .step-content-box {
+            flex: 1;
+            background: #f8f8f8;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 3px solid;
+        }
+
+        .workflow-path-1 .step-visual-1 .step-content-box {
+            border-left-color: #7ba85c;
+        }
+
+        .workflow-path-1 .step-decode-1 .step-content-box {
+            border-left-color: #6a9450;
+        }
+
+        .workflow-path-1 .step-data-1 .step-content-box {
+            border-left-color: #5a8444;
+        }
+
+        .workflow-path-2 .step-visual-2 .step-content-box {
+            border-left-color: #c48969;
+        }
+
+        .workflow-path-2 .step-decode-2 .step-content-box {
+            border-left-color: #b4795c;
+        }
+
+        .workflow-path-2 .step-data-2 .step-content-box {
+            border-left-color: #a46950;
+        }
+
+        .step-content-box h4 {
+            font-size: 1.2rem;
+            color: var(--color-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .step-content-box h4 img {
+            width: 24px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .step-content-box p {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .step-connector {
+            position: absolute;
+            left: 22px;
+            top: 45px;
+            width: 2px;
+            height: calc(100% + 1.5rem);
+            background: linear-gradient(to bottom, #ddd, transparent);
+        }
+
+        .workflow-process-step:last-child .step-connector {
+            display: none;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .workflow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .workflow-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .workflow-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .workflow-card h3 {
+            font-size: 1.6rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workflow-number {
+            background: var(--color-primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .workflow-steps {
+            margin-top: 1.5rem;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: start;
+            margin-bottom: 1.2rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .workflow-step::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background: white;
+            color: var(--color-primary);
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 5%;
+            background: var(--color-light);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            background: white;
+        }
+
+        .faq-question {
+            background: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 5%;
+            background: white;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .member-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 4px solid var(--color-light);
+            background: var(--color-light);
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            font-size: 1rem;
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .member-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .linkedin-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.7rem 1.5rem;
+            background: #0077b5;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .linkedin-button:hover {
+            background: #006399;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3);
+        }
+
+        .linkedin-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background: var(--color-dark);
+            color: white;
+            text-align: center;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            max-width: 500px;
+            background: rgba(44, 44, 44, 0.95);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            display: none;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .cookie-banner h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .cookie-banner p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+            line-height: 1.4;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn-accept {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--color-secondary);
+        }
+
+        .cookie-btn-reject {
+            background: transparent;
+            color: #bbb;
+            border: 1px solid #666;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn-reject:hover {
+            color: white;
+            border-color: white;
+        }
+
+        /* Messages */
+        .success-message, .error-message {
+            display: none;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+        }
+
+        .error-message {
+            background: #f44336;
+            color: white;
+        }
+
+        .success-message.show, .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .workflow-split-arrows {
+                height: 60px;
+                margin-bottom: 20px;
+            }
+
+            .arrow-branch {
+                display: none;
+            }
+
+            .arrow-mobile {
+                display: block;
+                width: 2px;
+                height: 100%;
+                background: #ccc;
+                position: relative;
+            }
+
+            .arrow-mobile .arrow-head {
+                position: absolute;
+                bottom: 0;
+                left: -5px;
+                width: 0;
+                height: 0;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 8px solid #ccc;
+            }
+
+            .dual-workflows {
+                flex-direction: column;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .workflow-path {
+                width: 100%;
+                flex: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .workflow-options {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .cookie-banner {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                max-width: 100%;
+                border-radius: 12px 12px 0 0;
+            }
+        }
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init({
+                publicKey: "naafauub4EK_7kPXB",
+            });
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <img src="icons/logo.png" alt="Logo NEST">
+                <span>NEST</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Vantaggi</a></li>
+                <li><a href="#how-it-works">Come Funziona</a></li>
+                <li><a href="#services">Servizi</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contatti</a></li>
+                <li><a href="#newsletter" class="cta-button">Resta Aggiornato</a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Digitalizzazione Museale <span>Intelligente</span></h1>
+                <p class="tagline">Rendiamo ogni museo un patrimonio accessibile al mondo</p>
+                <p class="hero-description">
+                    Semplifichiamo la digitalizzazione delle collezioni museali con strumenti personalizzabili su misura. 
+                    La nostra piattaforma AI-assistita trasforma il processo di catalogazione, 
+                    rendendo accessibili anche i tesori nascosti nei depositi.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
+                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>I Vantaggi di NEST</h2>
+            <p>Una soluzione completa pensata per le esigenze specifiche dei musei di storia naturale e non solo</p>
+        </div>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon"><img src="icons/velocità.png" alt="Icona Velocità"></div>
+                <h3>Velocità</h3>
+                <p>Digitalizza intere collezioni in una frazione del tempo tradizionale. Il nostro sistema AI-assistito accelera drasticamente il processo di catalogazione.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><img src="icons/automazione.png" alt="Icona Automazione"></div>
+                <h3>Automazione</h3>
+                <p>Riconoscimento automatico di oggetti e specie, lettura OCR delle etichette, standardizzazione dei metadati. L'AI lavora per te, tu mantieni il controllo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><img src="icons/adattabilità.png" alt="Icona Adattabilità"></div>
+                <h3>Adattabilità</h3>
+                <p>Personalizzazione completa per ogni tipo di collezione. Da una piccola collezione ad una collezione enorme, ci adattiamo alle vostre esigenze specifiche.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-header">
+            <h2>Dalla Foto al Database</h2>
+            <p>Due percorsi di digitalizzazione intelligente per ogni esigenza del museo</p>
+        </div>
+        
+        <div class="common-upload-step">
+            <div class="upload-icon">
+                <img src="icons/caricamento_immagini.png" alt="Icona Caricamento">
+            </div>
+            <h3>Caricamento Immagini</h3>
+            <p>Carica le foto dei tuoi reperti: scatole con più oggetti o singoli campioni con cartellini</p>
+        </div>
+
+        <div class="workflow-split-arrows">
+            <div class="arrow-branch branch-left">
+                <div class="line-curve"></div>
+                <div class="arrow-head"></div>
+            </div>
+            <div class="arrow-branch branch-right">
+                <div class="line-curve"></div>
+                <div class="arrow-head"></div>
+            </div>
+            <div class="arrow-mobile">
+                <div class="arrow-head"></div>
+            </div>
+        </div>
+
+        <div class="dual-workflows">
+            <div class="workflow-path workflow-path-1">
+                <div class="workflow-header">
+                    <div class="mids-badge mids-1">MIDS 1</div>
+                    <h3>Flusso 1: Riconoscimento Individui</h3>
+                    <p class="workflow-subtitle">Digitalizzazione rapida di collezioni multiple</p>
+                </div>
+                <div class="workflow-process-steps">
+                    <div class="workflow-process-step step-visual-1">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
+                                Riconoscimento Visivo
+                            </h4>
+                            <p>Identificazione automatica dei singoli individui nella foto</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="workflow-process-step step-decode-1">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
+                                Classificazione automatica
+                            </h4>
+                            <p>Assegnazione di classi tassonomiche agli oggetti riconosciuti</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="workflow-process-step step-data-1">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
+                                Dati standardizzati
+                            </h4>
+                            <p>Codici individuo, dati di specie e tipo nomenclaturale</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow-gif-container">
+                    <img src="icons/detection.gif" alt="Animazione di Rilevamento">
+                </div>
+            </div>
+
+            <div class="workflow-path workflow-path-2">
+                <div class="workflow-header">
+                    <div class="mids-badge mids-3">MIDS 3</div>
+                    <h3>Flusso 2: Digitalizzazione Cartellini</h3>
+                    <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
+                </div>
+                <div class="workflow-process-steps">
+                    <div class="workflow-process-step step-visual-2">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
+                                Riconoscimento visivo
+                            </h4>
+                            <p>Riconoscimento e isolamento dei cartellini dalla foto</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="workflow-process-step step-decode-2">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
+                                Classificazione automatica
+                            </h4>
+                            <p>OCR + LLM per estrazione e interpretazione del testo</p>
+                        </div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="workflow-process-step step-data-2">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-content-box">
+                            <h4>
+                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
+                                Dati standardizzati
+                            </h4>
+                            <p>Dati validati in formato Darwin Core standard per musei</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow-gif-container">
+                    <img src="icons/labels.gif" alt="Animazione Etichette">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="workflow-container">
+            <div class="section-header">
+                <h2>Modalità di Servizio</h2>
+                <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
+            </div>
+            <div class="workflow-options">
+                <div class="workflow-card">
+                    <h3>
+                        <span class="workflow-number">A</span>
+                        Modalità Autonoma
+                    </h3>
+                    <p>Il vostro personale gestisce autonomamente la digitalizzazione con il nostro software</p>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <span>Formazione iniziale del personale museale</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Configurazione personalizzata della piattaforma</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Elaborazione AI-assistita di immagini e metadati</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Revisione e validazione da parte dell'operatore</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Integrazione nel database standardizzato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow-card">
+                    <h3>
+                        <span class="workflow-number">B</span>
+                        Servizio Completo
+                    </h3>
+                    <p>Il nostro team si reca in loco e si occupa dell'intero processo</p>
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <span>Analisi preliminare della collezione</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Il team NEST si reca presso il museo</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Elaborazione e strutturazione dei dati</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Consegna del database completo</span>
+                        </div>
+                        <div class="workflow-step">
+                            <span>Supporto continuativo e aggiornamenti</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="newsletter" class="newsletter">
+        <div class="newsletter-container">
+            <h2>Unisciti alla Beta</h2>
+            <p>Sii tra i primi a rivoluzionare la digitalizzazione del tuo museo. Ricevi aggiornamenti sul lancio e dettagli sul pricing.</p>
+            <form id="newsletterForm" class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                <input type="email" name="user_email" placeholder="La tua email" required>
+                <button type="submit">Richiedi Accesso</button>
+            </form>
+            <div class="success-message" id="successMessage">
+                Grazie per l'interesse! Ti contatteremo presto con maggiori dettagli.
+            </div>
+            <div class="error-message" id="errorMessage">
+                Si è verificato un errore durante l'invio. Riprova più tardi.
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="faq-container">
+            <div class="section-header">
+                <h2>Domande Frequenti</h2>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Che tipo di musei possono utilizzare NEST?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>NEST è progettato per adattarsi a qualsiasi tipo di museo. Abbiamo iniziato con i musei di storia naturale come early adopter, ma la nostra piattaforma è completamente personalizzabile per collezioni d'arte, archeologia, etnografia, e qualsiasi altra tipologia di patrimonio culturale.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>È necessaria una formazione tecnica per utilizzare il software?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No, il nostro software è progettato per essere intuitivo e user-friendly. Offriamo una formazione iniziale breve e manuali di supporto dettagliati. Il personale museale può iniziare a digitalizzare dopo poche ore di training.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Come funziona l'intelligenza artificiale nel sistema?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>L'AI agisce come assistente: riconosce automaticamente oggetti e specie, legge le etichette tramite OCR, e suggerisce la standardizzazione dei dati. Tuttavia, tutte le decisioni finali rimangono sotto il controllo dell'operatore umano, garantendo accuratezza scientifica e qualità dei contenuti.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Quali standard di catalogazione supportate?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. Darwin Core). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Quando sarà disponibile la versione completa?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Attualmente abbiamo un prototipo funzionante e stiamo preparando il lancio della beta. Iscrivendoti alla newsletter riceverai aggiornamenti tempestivi sul lancio e avrai accesso prioritario alla piattaforma.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>Posso vedere una demo del sistema?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Certamente! Una volta iscritto alla newsletter per l'accesso beta, potrai richiedere una demo personalizzata. Ti mostreremo come NEST può adattarsi specificamente alle esigenze del tuo museo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-container">
+            <div class="section-header">
+                <h2>Il Nostro Team</h2>
+                <p>I musei non sono un vecchio contenitore di inutili oggetti polverosi. Il nostro obiettivo è portare innovazione e resuscitare il nostro patrimonio culturale.</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="icons/andrea-cerofolini.jpg" alt="Andrea Cerofolini">
+                    </div>
+                    <h3 class="member-name">Andrea Cerofolini</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-description">
+                        Ex ricercatore al Museo La Specola di Firenze
+                    </p>
+                    <a href="https://www.linkedin.com/in/andrea-cerofolini-aa287a303/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="icons/michele-bertoncini.jpg" alt="Michele Bertoncini">
+                    </div>
+                    <h3 class="member-name">Michele Bertoncini</h3>
+                    <p class="member-role">Co-Founder</p>
+                    <p class="member-description">
+                        Ex ricercatore al Museo La Specola di Firenze
+                    </p>
+                    <a href="https://www.linkedin.com/in/michele-bertoncini-73b7871bb/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="icons/andrelfoto.jpg" alt="Andres Lazzari">
+                    </div>
+                    <h3 class="member-name">Andres Lazzari</h3>
+                    <p class="member-role">CTO</p>
+                    <p class="member-description">
+                        Sviluppatore full-stack
+                    </p>
+                    <a href="https://www.linkedin.com/in/andres-lazzari/" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="https://via.placeholder.com/150" alt="Amir Eid">
+                    </div>
+                    <h3 class="member-name">Amir Eid</h3>
+                    <p class="member-role">CTO</p>
+                    <p class="member-description">
+                        Esperto di architetture di modelli di object detection
+                    </p>
+                    <a href="https://linkedin.com/in/nome-cognome" class="linkedin-button" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 NEST. Tutti i diritti riservati. | Rendiamo ogni museo un patrimonio accessibile al mondo</p>
+    </footer>
+
+    <div id="cookieConsentBanner" class="cookie-banner">
+        <h4>Utilizziamo i cookie per migliorare NEST</h4>
+        <p>
+            Utilizziamo cookie tecnici e di analisi per capire come interagisci con il sito e migliorarlo. 
+            Rispettiamo la tua privacy: i dati sono anonimi.
+        </p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta Tutto</button>
+            <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta</button>
+        </div>
+    </div>
+
+<script>
+        // === Cookie Consent Logic & Tracking ===
+        function loadTrackingScript() {
+            // Script di Microsoft Clarity
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "uapk5afb76"); // ID Corretto inserito qui
+            
+            console.log("Tracking attivato.");
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const consent = localStorage.getItem('nest_cookie_consent');
+            const banner = document.getElementById('cookieConsentBanner');
+
+            if (consent === 'true') {
+                // Se ha già accettato in passato, avvia subito il tracciamento
+                loadTrackingScript();
+            } else if (consent === 'false') {
+                // Se ha rifiutato, non fare nulla
+            } else {
+                // Se non c'è scelta (prima visita), mostra il banner dopo 1 secondo
+                setTimeout(() => {
+                    banner.style.display = 'block';
+                }, 1000);
+            }
+        });
+
+        function acceptCookies() {
+            localStorage.setItem('nest_cookie_consent', 'true');
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+            loadTrackingScript(); // Avvia il tracciamento ora
+        }
+
+        function rejectCookies() {
+            localStorage.setItem('nest_cookie_consent', 'false');
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+            // Non avviare loadTrackingScript
+        }
+
+        // === UI Interactions ===
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        // Newsletter Form con EmailJS
+        function handleNewsletterSubmit(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            successMessage.classList.remove('show');
+            errorMessage.classList.remove('show');
+
+            emailjs.sendForm('service_mmorfpp', 'template_ijphujc', form)
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    successMessage.classList.add('show');
+                    form.reset();
+                    
+                    // Traccia l'evento su Clarity se attivo (se l'utente ha accettato i cookie)
+                    if (typeof clarity === 'function') {
+                        clarity("event", "newsletter_signup");
+                    }
+                    
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                }, (error) => {
+                    console.log('FAILED...', error);
+                    errorMessage.classList.add('show');
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 5000);
+                });
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Chiude il menu mobile se aperto
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Header shadow on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // ERRORE RIMOSSO QUI
+                    entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.6s forwards';
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll('.feature-card, .process-step, .workflow-card');
+        animatedElements.forEach((el, index) => {
+            el.style.opacity = '0';
+            let delay = (index % 3) * 0.1;
+            el.dataset.animation = `fadeInUp 0.6s ${delay}s forwards`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
