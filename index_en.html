@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEST - Digitalizzazione Museale Intelligente</title>
+    <title>NEST - Intelligent Museum Digitization</title>
     <style>
         * {
             margin: 0;
@@ -28,7 +28,7 @@
             overflow-x: hidden;
         }
 
-        /* --- STILE TOOLTIP AGGIUNTO --- */
+        /* --- TOOLTIP STYLE --- */
         .tooltip-term {
             position: relative;
             cursor: help;
@@ -52,7 +52,7 @@
             padding: 12px 15px;
             position: absolute;
             z-index: 1001;
-            bottom: 135%; /* Posizionato sopra */
+            bottom: 135%;
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
@@ -69,7 +69,7 @@
             display: block;
             margin-bottom: 4px;
         }
-        
+
         .tooltip-box em {
             display: block;
             margin-top: 6px;
@@ -97,7 +97,7 @@
             transform: translateX(-50%) translateY(-5px);
         }
 
-        /* Gestione Tooltip Mobile */
+        /* Tooltip Mobile */
         @media (max-width: 768px) {
             .tooltip-box {
                 width: 220px;
@@ -109,10 +109,10 @@
                 transform: translateX(-20px) translateY(-5px);
             }
             .tooltip-box::after {
-                left: 40px; 
+                left: 40px;
             }
         }
-        /* --- FINE STILE TOOLTIP --- */
+        /* --- END TOOLTIP STYLE --- */
 
         /* Header */
         header {
@@ -187,6 +187,33 @@
             box-shadow: 0 10px 20px rgba(137, 159, 106, 0.3);
         }
 
+        /* Language Switcher */
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            border: 1.5px solid #ddd;
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--color-dark);
+            transition: all 0.3s;
+            background: transparent;
+            white-space: nowrap;
+        }
+
+        .lang-switch:hover {
+            background: var(--color-light);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .lang-switch .flag {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
 
         /* Mobile Menu */
         .mobile-menu-toggle {
@@ -1094,34 +1121,6 @@
             }
         }
 
-        /* Language Switcher */
-        .lang-switch {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            border: 1.5px solid #ddd;
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--color-dark);
-            transition: all 0.3s;
-            background: transparent;
-            white-space: nowrap;
-        }
-
-        .lang-switch:hover {
-            background: var(--color-light);
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-        }
-
-        .lang-switch .flag {
-            font-size: 1.1rem;
-            line-height: 1;
-        }
-
         /* Mobile Responsive */
         @media (max-width: 968px) {
             .workflow-split-arrows {
@@ -1221,21 +1220,21 @@
     <header>
         <nav>
             <a href="#" class="logo">
-                <img src="icons/logo.png" alt="Logo NEST">
+                <img src="icons/logo.png" alt="NEST Logo">
                 <span>NEST</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#features">Vantaggi</a></li>
-                <li><a href="#how-it-works">Come Funziona</a></li>
-                <li><a href="#services">Servizi</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#services">Services</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contact">Contatti</a></li>
-                <li><a href="#newsletter" class="cta-button">Resta Aggiornato</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#newsletter" class="cta-button">Stay Updated</a></li>
             </ul>
-                <a href="index_en.html" class="lang-switch" title="Switch to English">
-                    <img src="icons/uk-flag.png" alt="English" style="width: 20px; height: auto; margin-right: 5px;">
-                    <span>EN</span>
-                </a>
+            <a href="index.html" class="lang-switch" title="Passa all'italiano">
+                <img src="icons/it-flag.png" alt="Italian" style="width: 20px; height: auto; margin-right: 5px;">
+                <span>IT</span>
+            </a>
             <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
@@ -1247,16 +1246,16 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Digitalizzazione Museale <span>Intelligente</span></h1>
-                <p class="tagline">Rendiamo ogni museo un patrimonio accessibile al mondo</p>
+                <h1>Intelligent Museum <span>Digitization</span></h1>
+                <p class="tagline">Making every museum a heritage accessible to the world</p>
                 <p class="hero-description">
-                    Semplifichiamo la digitalizzazione delle collezioni museali con strumenti personalizzabili su misura. 
-                    La nostra piattaforma AI-assistita trasforma il processo di catalogazione, 
-                    rendendo accessibili anche i tesori nascosti nei depositi.
+                    We simplify the digitization of museum collections with fully customizable tools.
+                    Our AI-assisted platform transforms the cataloging process,
+                    making even the treasures hidden in storage rooms accessible.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#newsletter" class="cta-button">Richiedi Accesso Beta</a>
-                    <a href="#how-it-works" class="secondary-button">Scopri Come Funziona</a>
+                    <a href="#newsletter" class="cta-button">Request Beta Access</a>
+                    <a href="#how-it-works" class="secondary-button">Discover How It Works</a>
                 </div>
             </div>
         </div>
@@ -1264,40 +1263,40 @@
 
     <section id="features" class="features">
         <div class="section-header">
-            <h2>I Vantaggi di NEST</h2>
-            <p>Una soluzione completa pensata per le esigenze specifiche dei musei di storia naturale e non solo</p>
+            <h2>The Advantages of NEST</h2>
+            <p>A complete solution designed for the specific needs of natural history museums and beyond</p>
         </div>
         <div class="feature-cards">
             <div class="feature-card">
-                <div class="feature-icon"><img src="icons/velocità.png" alt="Icona Velocità"></div>
-                <h3>Velocità</h3>
-                <p>Digitalizza intere collezioni in una frazione del tempo tradizionale. Il nostro sistema AI-assistito accelera drasticamente il processo di catalogazione.</p>
+                <div class="feature-icon"><img src="icons/velocità.png" alt="Speed Icon"></div>
+                <h3>Speed</h3>
+                <p>Digitize entire collections in a fraction of the traditional time. Our AI-assisted system drastically accelerates the cataloging process.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon"><img src="icons/automazione.png" alt="Icona Automazione"></div>
-                <h3>Automazione</h3>
-                <p>Riconoscimento automatico di oggetti e specie, lettura OCR delle etichette, standardizzazione dei metadati. L'AI lavora per te, tu mantieni il controllo.</p>
+                <div class="feature-icon"><img src="icons/automazione.png" alt="Automation Icon"></div>
+                <h3>Automation</h3>
+                <p>Automatic recognition of objects and species, OCR reading of labels, metadata standardization. AI works for you while you maintain control.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon"><img src="icons/adattabilità.png" alt="Icona Adattabilità"></div>
-                <h3>Adattabilità</h3>
-                <p>Personalizzazione completa per ogni tipo di collezione. Da una piccola collezione ad una collezione enorme, ci adattiamo alle vostre esigenze specifiche.</p>
+                <div class="feature-icon"><img src="icons/adattabilità.png" alt="Adaptability Icon"></div>
+                <h3>Adaptability</h3>
+                <p>Full customization for every type of collection. From a small collection to a massive one, we adapt to your specific needs.</p>
             </div>
         </div>
     </section>
 
     <section id="how-it-works" class="how-it-works">
         <div class="section-header">
-            <h2>Dalla Foto al Database</h2>
-            <p>Due percorsi di digitalizzazione intelligente per ogni esigenza del museo</p>
+            <h2>From Photo to Database</h2>
+            <p>Two intelligent digitization pathways for every museum need</p>
         </div>
-        
+
         <div class="common-upload-step">
             <div class="upload-icon">
-                <img src="icons/caricamento_immagini.png" alt="Icona Caricamento">
+                <img src="icons/caricamento_immagini.png" alt="Upload Icon">
             </div>
-            <h3>Caricamento Immagini</h3>
-            <p>Carica le foto dei tuoi reperti: scatole con più oggetti o singoli campioni con cartellini</p>
+            <h3>Image Upload</h3>
+            <p>Upload photos of your specimens: boxes with multiple objects or individual samples with labels</p>
         </div>
 
         <div class="workflow-split-arrows">
@@ -1321,23 +1320,23 @@
                         <span class="tooltip-term">MIDS 1
                             <span class="tooltip-box">
                                 <strong>MIDS 1 (Basic Record)</strong>
-                                Livello base di digitalizzazione: catalogo sommario con numero inventario e presenza fisica confermata.
-                                <em>Per Musei d'Arte: Inventario di base / Checklist inventariale.</em>
+                                Basic level of digitization: summary catalog with inventory number and confirmed physical presence.
+                                <em>For Art Museums: Basic inventory / Inventory checklist.</em>
                             </span>
                         </span>
                     </div>
-                    <h3>Flusso 1: Riconoscimento Individui</h3>
-                    <p class="workflow-subtitle">Digitalizzazione rapida di collezioni multiple</p>
+                    <h3>Flow 1: Individual Recognition</h3>
+                    <p class="workflow-subtitle">Rapid digitization of multiple collections</p>
                 </div>
                 <div class="workflow-process-steps">
                     <div class="workflow-process-step step-visual-1">
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
-                                Riconoscimento Visivo
+                                <img src="icons/riconoscimento_visivo.png" alt="Icon">
+                                Visual Recognition
                             </h4>
-                            <p>Identificazione automatica dei singoli individui nella foto</p>
+                            <p>Automatic identification of individual specimens in the photo</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1345,16 +1344,16 @@
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
-                                Classificazione automatica
+                                <img src="icons/classificazione_automatica.png" alt="Icon">
+                                Automatic Classification
                             </h4>
-                            <p>Assegnazione di <span class="tooltip-term">classi tassonomiche
+                            <p>Assignment of <span class="tooltip-term">taxonomic classes
                                 <span class="tooltip-box">
-                                    <strong>Classi Tassonomiche</strong>
-                                    Gerarchia di classificazione biologica (Regno, Phylum, Classe, Ordine).
-                                    <em>Per Musei d'Arte: Categorie stilistiche, Periodo storico, Scuola artistica.</em>
+                                    <strong>Taxonomic Classes</strong>
+                                    Biological classification hierarchy (Kingdom, Phylum, Class, Order).
+                                    <em>For Art Museums: Style categories, Historical period, Artistic school.</em>
                                 </span>
-                            </span> agli oggetti riconosciuti</p>
+                            </span> to recognized objects</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1362,21 +1361,21 @@
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
-                                Dati standardizzati
+                                <img src="icons/dati_standardizzati.png" alt="Icon">
+                                Standardized Data
                             </h4>
-                            <p>Codici individuo, dati di specie e <span class="tooltip-term">tipo nomenclaturale
+                            <p>Individual codes, species data and <span class="tooltip-term">nomenclatural type
                                 <span class="tooltip-box">
-                                    <strong>Tipo Nomenclaturale</strong>
-                                    L'esemplare fisico specifico su cui è basata la descrizione scientifica di una specie.
-                                    <em>Per Musei d'Arte: L'Originale, il Capolavoro autentico o l'Opera di riferimento (vs. copie o bottega).</em>
+                                    <strong>Nomenclatural Type</strong>
+                                    The specific physical specimen on which the scientific description of a species is based.
+                                    <em>For Art Museums: The Original, the authentic Masterpiece or the reference Work (vs. copies or workshop).</em>
                                 </span>
                             </span></p>
                         </div>
                     </div>
                 </div>
                 <div class="workflow-gif-container">
-                    <img src="icons/detection.gif" alt="Animazione di Rilevamento">
+                    <img src="icons/detection.gif" alt="Detection Animation">
                 </div>
             </div>
 
@@ -1386,23 +1385,23 @@
                         <span class="tooltip-term">MIDS 3
                             <span class="tooltip-box">
                                 <strong>MIDS 3 (Extended)</strong>
-                                Digitalizzazione avanzata: include media di qualità, dati estesi, georeferenziazione e collegamenti.
-                                <em>Per Musei d'Arte: Scheda di catalogo completa (OA/RA) con provenienza, mostre e bibliografia.</em>
+                                Advanced digitization: includes quality media, extended data, georeferencing and links.
+                                <em>For Art Museums: Complete catalog card (OA/RA) with provenance, exhibitions and bibliography.</em>
                             </span>
                         </span>
                     </div>
-                    <h3>Flusso 2: Digitalizzazione Cartellini</h3>
-                    <p class="workflow-subtitle">Estrazione completa dei metadati scientifici</p>
+                    <h3>Flow 2: Label Digitization</h3>
+                    <p class="workflow-subtitle">Complete extraction of scientific metadata</p>
                 </div>
                 <div class="workflow-process-steps">
                     <div class="workflow-process-step step-visual-2">
                         <div class="step-number-circle">1</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/riconoscimento_visivo.png" alt="Icona"> 
-                                Riconoscimento visivo
+                                <img src="icons/riconoscimento_visivo.png" alt="Icon">
+                                Visual Recognition
                             </h4>
-                            <p>Riconoscimento e isolamento dei cartellini dalla foto</p>
+                            <p>Detection and isolation of labels from the photo</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1410,16 +1409,16 @@
                         <div class="step-number-circle">2</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/classificazione_automatica.png" alt="Icona"> 
-                                Classificazione automatica
+                                <img src="icons/classificazione_automatica.png" alt="Icon">
+                                Automatic Classification
                             </h4>
                             <p>OCR + <span class="tooltip-term">LLM
                                 <span class="tooltip-box">
                                     <strong>Large Language Model</strong>
-                                    Intelligenza Artificiale avanzata capace di comprendere e generare testo umano.
-                                    <em>Per Musei d'Arte: Utile per trascrivere calligrafie antiche in lettere, diari d'artista o annotazioni d'archivio.</em>
+                                    Advanced Artificial Intelligence capable of understanding and generating human text.
+                                    <em>For Art Museums: Useful for transcribing ancient calligraphy in letters, artist diaries or archive annotations.</em>
                                 </span>
-                            </span> per estrazione e interpretazione del testo</p>
+                            </span> for text extraction and interpretation</p>
                         </div>
                         <div class="step-connector"></div>
                     </div>
@@ -1427,21 +1426,21 @@
                         <div class="step-number-circle">3</div>
                         <div class="step-content-box">
                             <h4>
-                                <img src="icons/dati_standardizzati.png" alt="Icona"> 
-                                Dati standardizzati
+                                <img src="icons/dati_standardizzati.png" alt="Icon">
+                                Standardized Data
                             </h4>
-                            <p>Dati validati in formato <span class="tooltip-term">Darwin Core
+                            <p>Data validated in <span class="tooltip-term">Darwin Core
                                 <span class="tooltip-box">
                                     <strong>Darwin Core (DwC)</strong>
-                                    Standard internazionale per la condivisione di dati sulla biodiversità.
-                                    <em>Per Musei d'Arte: Standard descrittivi come LIDO (Lightweight Information Describing Objects) o CDWA.</em>
+                                    International standard for sharing biodiversity data.
+                                    <em>For Art Museums: Descriptive standards such as LIDO (Lightweight Information Describing Objects) or CDWA.</em>
                                 </span>
-                            </span> standard per musei</p>
+                            </span> format for museums</p>
                         </div>
                     </div>
                 </div>
                 <div class="workflow-gif-container">
-                    <img src="icons/labels.gif" alt="Animazione Etichette">
+                    <img src="icons/labels.gif" alt="Labels Animation">
                 </div>
             </div>
         </div>
@@ -1450,55 +1449,55 @@
     <section id="services" class="services">
         <div class="workflow-container">
             <div class="section-header">
-                <h2>Modalità di Servizio</h2>
-                <p>Scegli come implementare NEST nel tuo museo: autonomia o supporto completo</p>
+                <h2>Service Modes</h2>
+                <p>Choose how to implement NEST in your museum: autonomy or full support</p>
             </div>
             <div class="workflow-options">
                 <div class="workflow-card">
                     <h3>
                         <span class="workflow-number">A</span>
-                        Modalità Autonoma
+                        Autonomous Mode
                     </h3>
-                    <p>Il vostro personale gestisce autonomamente la digitalizzazione con il nostro software</p>
+                    <p>Your staff independently manages digitization using our software</p>
                     <div class="workflow-steps">
                         <div class="workflow-step">
-                            <span>Formazione iniziale del personale museale</span>
+                            <span>Initial training of museum staff</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Configurazione personalizzata della piattaforma</span>
+                            <span>Custom platform configuration</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Elaborazione AI-assistita di immagini e metadati</span>
+                            <span>AI-assisted processing of images and metadata</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Revisione e validazione da parte dell'operatore</span>
+                            <span>Operator review and validation</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Integrazione nel database standardizzato</span>
+                            <span>Integration into the standardized database</span>
                         </div>
                     </div>
                 </div>
                 <div class="workflow-card">
                     <h3>
                         <span class="workflow-number">B</span>
-                        Servizio Completo
+                        Full Service
                     </h3>
-                    <p>Il nostro team si reca in loco e si occupa dell'intero processo</p>
+                    <p>Our team visits your site and handles the entire process</p>
                     <div class="workflow-steps">
                         <div class="workflow-step">
-                            <span>Analisi preliminare della collezione</span>
+                            <span>Preliminary analysis of the collection</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Il team NEST si reca presso il museo</span>
+                            <span>The NEST team visits the museum on-site</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Elaborazione e strutturazione dei dati</span>
+                            <span>Data processing and structuring</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Consegna del database completo</span>
+                            <span>Delivery of the complete database</span>
                         </div>
                         <div class="workflow-step">
-                            <span>Supporto continuativo e aggiornamenti</span>
+                            <span>Ongoing support and updates</span>
                         </div>
                     </div>
                 </div>
@@ -1508,17 +1507,17 @@
 
     <section id="newsletter" class="newsletter">
         <div class="newsletter-container">
-            <h2>Unisciti alla Beta</h2>
-            <p>Sii tra i primi a rivoluzionare la digitalizzazione del tuo museo. Ricevi aggiornamenti sul lancio e dettagli sul pricing.</p>
+            <h2>Join the Beta</h2>
+            <p>Be among the first to revolutionize the digitization of your museum. Receive launch updates and pricing details.</p>
             <form id="newsletterForm" class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
-                <input type="email" name="user_email" placeholder="La tua email" required>
-                <button type="submit">Richiedi Accesso</button>
+                <input type="email" name="user_email" placeholder="Your email" required>
+                <button type="submit">Request Access</button>
             </form>
             <div class="success-message" id="successMessage">
-                Grazie per l'interesse! Ti contatteremo presto con maggiori dettagli.
+                Thank you for your interest! We will contact you soon with more details.
             </div>
             <div class="error-message" id="errorMessage">
-                Si è verificato un errore durante l'invio. Riprova più tardi.
+                An error occurred while sending. Please try again later.
             </div>
         </div>
     </section>
@@ -1526,66 +1525,66 @@
     <section id="faq" class="faq">
         <div class="faq-container">
             <div class="section-header">
-                <h2>Domande Frequenti</h2>
+                <h2>Frequently Asked Questions</h2>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>Che tipo di musei possono utilizzare NEST?</h3>
+                    <h3>What types of museums can use NEST?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>NEST è progettato per adattarsi a qualsiasi tipo di museo. Abbiamo iniziato con i musei di storia naturale come early adopter, ma la nostra piattaforma è completamente personalizzabile per collezioni d'arte, archeologia, etnografia, e qualsiasi altra tipologia di patrimonio culturale.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>È necessaria una formazione tecnica per utilizzare il software?</h3>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>No, il nostro software è progettato per essere intuitivo e user-friendly. Offriamo una formazione iniziale breve e manuali di supporto dettagliati. Il personale museale può iniziare a digitalizzare dopo poche ore di training.</p>
+                    <p>NEST is designed to adapt to any type of museum. We started with natural history museums as early adopters, but our platform is fully customizable for art, archaeology, ethnography, and any other type of cultural heritage collection.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>Come funziona l'intelligenza artificiale nel sistema?</h3>
+                    <h3>Is technical training required to use the software?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>L'AI agisce come assistente: riconosce automaticamente oggetti e specie, legge le etichette tramite OCR, e suggerisce la standardizzazione dei dati. Tuttavia, tutte le decisioni finali rimangono sotto il controllo dell'operatore umano, garantendo accuratezza scientifica e qualità dei contenuti.</p>
+                    <p>No, our software is designed to be intuitive and user-friendly. We offer brief initial training and detailed support manuals. Museum staff can start digitizing after just a few hours of training.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>Quali standard di catalogazione supportate?</h3>
+                    <h3>How does artificial intelligence work in the system?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>NEST supporta tutti i principali standard riconosciuti a livello museale e scientifico internazionale (es. <span class="tooltip-term">Darwin Core
+                    <p>AI acts as an assistant: it automatically recognizes objects and species, reads labels via OCR, and suggests data standardization. However, all final decisions remain under human operator control, ensuring scientific accuracy and content quality.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <h3>What cataloging standards do you support?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>NEST supports all major internationally recognized museum and scientific standards (e.g. <span class="tooltip-term">Darwin Core
                         <span class="tooltip-box">
                             <strong>Darwin Core (DwC)</strong>
-                            Standard internazionale per la condivisione di dati sulla biodiversità.
-                            <em>Per Musei d'Arte: Standard descrittivi come LIDO o CDWA.</em>
+                            International standard for sharing biodiversity data.
+                            <em>For Art Museums: Descriptive standards such as LIDO or CDWA.</em>
                         </span>
-                    </span>). La piattaforma può essere configurata per conformarsi agli standard specifici del vostro museo o alle linee guida nazionali.</p>
+                    </span>). The platform can be configured to comply with your museum's specific standards or national guidelines.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>Quando sarà disponibile la versione completa?</h3>
+                    <h3>When will the full version be available?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Attualmente abbiamo un prototipo funzionante e stiamo preparando il lancio della beta. Iscrivendoti alla newsletter riceverai aggiornamenti tempestivi sul lancio e avrai accesso prioritario alla piattaforma.</p>
+                    <p>We currently have a working prototype and are preparing for the beta launch. By subscribing to the newsletter you will receive timely updates on the launch and gain priority access to the platform.</p>
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <h3>Posso vedere una demo del sistema?</h3>
+                    <h3>Can I see a demo of the system?</h3>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p>Certamente! Una volta iscritto alla newsletter per l'accesso beta, potrai richiedere una demo personalizzata. Ti mostreremo come NEST può adattarsi specificamente alle esigenze del tuo museo.</p>
+                    <p>Absolutely! Once you sign up for beta access via the newsletter, you can request a personalized demo. We will show you how NEST can be specifically tailored to your museum's needs.</p>
                 </div>
             </div>
         </div>
@@ -1594,10 +1593,10 @@
     <section id="contact" class="contact">
         <div class="contact-container">
             <div class="section-header">
-                <h2>Il Nostro Team</h2>
-                <p>I musei non sono un vecchio contenitore di inutili oggetti polverosi. Il nostro obiettivo è portare innovazione e resuscitare il nostro patrimonio culturale.</p>
+                <h2>Our Team</h2>
+                <p>Museums are not old containers of useless dusty objects. Our goal is to bring innovation and breathe new life into our cultural heritage.</p>
             </div>
-            
+
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-photo">
@@ -1606,7 +1605,7 @@
                     <h3 class="member-name">Andrea Cerofolini</h3>
                     <p class="member-role">Co-Founder</p>
                     <p class="member-description">
-                        Ex ricercatore al Museo La Specola di Firenze
+                        Former researcher at the La Specola Museum in Florence
                     </p>
                     <a href="https://www.linkedin.com/in/andrea-cerofolini-aa287a303/" class="linkedin-button" target="_blank">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1623,7 +1622,7 @@
                     <h3 class="member-name">Michele Bertoncini</h3>
                     <p class="member-role">Co-Founder</p>
                     <p class="member-description">
-                        Ex ricercatore al Museo La Specola di Firenze
+                        Former researcher at the La Specola Museum in Florence
                     </p>
                     <a href="https://www.linkedin.com/in/michele-bertoncini-73b7871bb/" class="linkedin-button" target="_blank">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1639,7 +1638,7 @@
                     <h3 class="member-name">Andres Lazzari</h3>
                     <p class="member-role">CTO</p>
                     <p class="member-description">
-                        Sviluppatore full-stack
+                        Full-stack developer
                     </p>
                     <a href="https://www.linkedin.com/in/andres-lazzari/" class="linkedin-button" target="_blank">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1656,7 +1655,7 @@
                     <h3 class="member-name">Amir Eid</h3>
                     <p class="member-role">CTO</p>
                     <p class="member-description">
-                        Sviluppatore full-stack
+                        Full-stack developer
                     </p>
                     <a href="https://www.linkedin.com/in/amireid/" class="linkedin-button" target="_blank">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1670,32 +1669,31 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 NEST. Tutti i diritti riservati. | Rendiamo ogni museo un patrimonio accessibile al mondo</p>
+        <p>&copy; 2025 NEST. All rights reserved. | Making every museum a heritage accessible to the world</p>
     </footer>
 
     <div id="cookieConsentBanner" class="cookie-banner">
-        <h4>Utilizziamo i cookie per migliorare NEST</h4>
+        <h4>We use cookies to improve NEST</h4>
         <p>
-            Utilizziamo cookie tecnici e di analisi per capire come interagisci con il sito e migliorarlo. 
-            Rispettiamo la tua privacy: i dati sono anonimi.
+            We use technical and analytics cookies to understand how you interact with the site and improve it.
+            We respect your privacy: data is anonymous.
         </p>
         <div class="cookie-buttons">
-            <button class="cookie-btn-accept" onclick="acceptCookies()">Accetta Tutto</button>
-            <button class="cookie-btn-reject" onclick="rejectCookies()">Rifiuta</button>
+            <button class="cookie-btn-accept" onclick="acceptCookies()">Accept All</button>
+            <button class="cookie-btn-reject" onclick="rejectCookies()">Reject</button>
         </div>
     </div>
 
 <script>
         // === Cookie Consent Logic & Tracking ===
         function loadTrackingScript() {
-            // Script di Microsoft Clarity
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "uapk5afb76"); // ID Corretto inserito qui
-            
-            console.log("Tracking attivato.");
+            })(window, document, "clarity", "script", "uapk5afb76");
+
+            console.log("Tracking enabled.");
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -1703,12 +1701,10 @@
             const banner = document.getElementById('cookieConsentBanner');
 
             if (consent === 'true') {
-                // Se ha già accettato in passato, avvia subito il tracciamento
                 loadTrackingScript();
             } else if (consent === 'false') {
-                // Se ha rifiutato, non fare nulla
+                // User rejected, do nothing
             } else {
-                // Se non c'è scelta (prima visita), mostra il banner dopo 1 secondo
                 setTimeout(() => {
                     banner.style.display = 'block';
                 }, 1000);
@@ -1718,30 +1714,26 @@
         function acceptCookies() {
             localStorage.setItem('nest_cookie_consent', 'true');
             document.getElementById('cookieConsentBanner').style.display = 'none';
-            loadTrackingScript(); // Avvia il tracciamento ora
+            loadTrackingScript();
         }
 
         function rejectCookies() {
             localStorage.setItem('nest_cookie_consent', 'false');
             document.getElementById('cookieConsentBanner').style.display = 'none';
-            // Non avviare loadTrackingScript
         }
 
         // === UI Interactions ===
 
-        // Mobile Menu Toggle
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
             navLinks.classList.toggle('active');
         }
 
-        // FAQ Toggle
         function toggleFaq(element) {
             const faqItem = element.parentElement;
             faqItem.classList.toggle('active');
         }
 
-        // Newsletter Form con EmailJS
         function handleNewsletterSubmit(event) {
             event.preventDefault();
 
@@ -1757,12 +1749,11 @@
                     console.log('SUCCESS!', response.status, response.text);
                     successMessage.classList.add('show');
                     form.reset();
-                    
-                    // Traccia l'evento su Clarity se attivo (se l'utente ha accettato i cookie)
+
                     if (typeof clarity === 'function') {
                         clarity("event", "newsletter_signup");
                     }
-                    
+
                     setTimeout(() => {
                         successMessage.classList.remove('show');
                     }, 5000);
@@ -1775,7 +1766,6 @@
                 });
         }
 
-        // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1785,13 +1775,11 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Chiude il menu mobile se aperto
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
         });
 
-        // Header shadow on scroll
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
@@ -1801,7 +1789,6 @@
             }
         });
 
-        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1810,7 +1797,6 @@
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // ERRORE RIMOSSO QUI
                     entry.target.style.animation = entry.target.dataset.animation || 'fadeInUp 0.6s forwards';
                 }
             });
