@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEST - Intelligent Museum Digitization</title>
+    <title>NEST - Neural Extraction for Specimens Tagging</title>
     <style>
         * {
             margin: 0;
@@ -263,6 +263,13 @@
         .hero-text h1 span {
             color: var(--color-primary);
         }
+
+        .hero-text h1 .small-text {
+            font-size: 0.5em; /* Riduce la dimensione rispetto al testo principale */
+            font-weight: 400; /* Opzionale: lo rende più sottile */
+            display: inline-block; /* Permette un miglior controllo del posizionamento */
+            line-height: 1.2;    /* Regola lo spazio verticale se necessario */
+        }       
 
         .tagline {
             font-size: 1.25rem;
@@ -1246,7 +1253,11 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Intelligent Museum <span>Digitization</span></h1>
+                <h1>
+                    Neural Extraction <br>
+                    <span class="small-text">for</span> <br>
+                    <span>Specimens Tagging</span>
+                </h1>
                 <p class="tagline">Making every museum a heritage accessible to the world</p>
                 <p class="hero-description">
                     We simplify the digitization of museum collections with fully customizable tools.
